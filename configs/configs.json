@@ -1,0 +1,24 @@
+{
+  "Debug": true,
+  "Verbose": false,
+  "LogName":"log.txt",
+  "api": {
+    "grpc": {
+      "Network": "tcp",
+      "Addr": "0.0.0.0:8001",
+      "Timeout": "1s"
+    },
+    "http": {
+      "Addr": "0.0.0.0:9001",
+      "Timeout": "1s"
+    }
+  },
+  "database":{
+    "Driver": "mysql",
+    "Source": "hfcms_users_user:hfcms_users_user_passwd@tcp(127.0.0.1:3306)/hfcms_users?loc=Asia%2FShanghai&parseTime=true"
+  },
+  "web":{
+    "Addr": ":80",
+    "Tmpl": "templates"
+  }
+}
