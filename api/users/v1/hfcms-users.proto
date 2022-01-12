@@ -94,11 +94,14 @@ message DeleteUserRequest {
 
 message User{
   string name = 1;
-  string user_id = 2;
+  int32 user_id = 2;
   string username = 3;
   string password = 4;
-  google.protobuf.Timestamp update_time = 5;
-  string user_ip = 6;
-  string department_id = 7;
-  string role_id = 8;
+  string realname = 5;
+  string nickname = 6;
+  string avatar_url = 7;
+  string phone =8;
+  string user_ip = 9;
+  google.protobuf.Timestamp create_time = 10;
+  google.protobuf.Timestamp update_time = 11;
 }
