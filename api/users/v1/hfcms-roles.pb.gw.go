@@ -32,17 +32,17 @@ var _ = utilities.NewDoubleArray
 var _ = metadata.Join
 
 var (
-	filter_RolesService_ListRoles_0 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
+	filter_RolesAPI_ListRoles_0 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
 )
 
-func request_RolesService_ListRoles_0(ctx context.Context, marshaler runtime.Marshaler, client RolesServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func request_RolesAPI_ListRoles_0(ctx context.Context, marshaler runtime.Marshaler, client RolesAPIClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq ListRolesRequest
 	var metadata runtime.ServerMetadata
 
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_RolesService_ListRoles_0); err != nil {
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_RolesAPI_ListRoles_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
@@ -51,14 +51,14 @@ func request_RolesService_ListRoles_0(ctx context.Context, marshaler runtime.Mar
 
 }
 
-func local_request_RolesService_ListRoles_0(ctx context.Context, marshaler runtime.Marshaler, server RolesServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func local_request_RolesAPI_ListRoles_0(ctx context.Context, marshaler runtime.Marshaler, server RolesAPIServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq ListRolesRequest
 	var metadata runtime.ServerMetadata
 
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_RolesService_ListRoles_0); err != nil {
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_RolesAPI_ListRoles_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
@@ -67,7 +67,7 @@ func local_request_RolesService_ListRoles_0(ctx context.Context, marshaler runti
 
 }
 
-func request_RolesService_GetRole_0(ctx context.Context, marshaler runtime.Marshaler, client RolesServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func request_RolesAPI_GetRole_0(ctx context.Context, marshaler runtime.Marshaler, client RolesAPIClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq GetRoleRequest
 	var metadata runtime.ServerMetadata
 
@@ -93,7 +93,7 @@ func request_RolesService_GetRole_0(ctx context.Context, marshaler runtime.Marsh
 
 }
 
-func local_request_RolesService_GetRole_0(ctx context.Context, marshaler runtime.Marshaler, server RolesServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func local_request_RolesAPI_GetRole_0(ctx context.Context, marshaler runtime.Marshaler, server RolesAPIServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq GetRoleRequest
 	var metadata runtime.ServerMetadata
 
@@ -120,10 +120,10 @@ func local_request_RolesService_GetRole_0(ctx context.Context, marshaler runtime
 }
 
 var (
-	filter_RolesService_CreateRole_0 = &utilities.DoubleArray{Encoding: map[string]int{"role": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
+	filter_RolesAPI_CreateRole_0 = &utilities.DoubleArray{Encoding: map[string]int{"role": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
 )
 
-func request_RolesService_CreateRole_0(ctx context.Context, marshaler runtime.Marshaler, client RolesServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func request_RolesAPI_CreateRole_0(ctx context.Context, marshaler runtime.Marshaler, client RolesAPIClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq CreateRoleRequest
 	var metadata runtime.ServerMetadata
 
@@ -138,7 +138,7 @@ func request_RolesService_CreateRole_0(ctx context.Context, marshaler runtime.Ma
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_RolesService_CreateRole_0); err != nil {
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_RolesAPI_CreateRole_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
@@ -147,7 +147,7 @@ func request_RolesService_CreateRole_0(ctx context.Context, marshaler runtime.Ma
 
 }
 
-func local_request_RolesService_CreateRole_0(ctx context.Context, marshaler runtime.Marshaler, server RolesServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func local_request_RolesAPI_CreateRole_0(ctx context.Context, marshaler runtime.Marshaler, server RolesAPIServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq CreateRoleRequest
 	var metadata runtime.ServerMetadata
 
@@ -162,7 +162,7 @@ func local_request_RolesService_CreateRole_0(ctx context.Context, marshaler runt
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_RolesService_CreateRole_0); err != nil {
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_RolesAPI_CreateRole_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
@@ -171,7 +171,7 @@ func local_request_RolesService_CreateRole_0(ctx context.Context, marshaler runt
 
 }
 
-func request_RolesService_UpdateRole_0(ctx context.Context, marshaler runtime.Marshaler, client RolesServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func request_RolesAPI_UpdateRole_0(ctx context.Context, marshaler runtime.Marshaler, client RolesAPIClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq UpdateRoleRequest
 	var metadata runtime.ServerMetadata
 
@@ -205,7 +205,7 @@ func request_RolesService_UpdateRole_0(ctx context.Context, marshaler runtime.Ma
 
 }
 
-func local_request_RolesService_UpdateRole_0(ctx context.Context, marshaler runtime.Marshaler, server RolesServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func local_request_RolesAPI_UpdateRole_0(ctx context.Context, marshaler runtime.Marshaler, server RolesAPIServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq UpdateRoleRequest
 	var metadata runtime.ServerMetadata
 
@@ -239,7 +239,7 @@ func local_request_RolesService_UpdateRole_0(ctx context.Context, marshaler runt
 
 }
 
-func request_RolesService_DeleteRole_0(ctx context.Context, marshaler runtime.Marshaler, client RolesServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func request_RolesAPI_DeleteRole_0(ctx context.Context, marshaler runtime.Marshaler, client RolesAPIClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq DeleteRoleRequest
 	var metadata runtime.ServerMetadata
 
@@ -265,7 +265,7 @@ func request_RolesService_DeleteRole_0(ctx context.Context, marshaler runtime.Ma
 
 }
 
-func local_request_RolesService_DeleteRole_0(ctx context.Context, marshaler runtime.Marshaler, server RolesServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func local_request_RolesAPI_DeleteRole_0(ctx context.Context, marshaler runtime.Marshaler, server RolesAPIServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq DeleteRoleRequest
 	var metadata runtime.ServerMetadata
 
@@ -291,24 +291,24 @@ func local_request_RolesService_DeleteRole_0(ctx context.Context, marshaler runt
 
 }
 
-// RegisterRolesServiceHandlerServer registers the http handlers for service RolesService to "mux".
-// UnaryRPC     :call RolesServiceServer directly.
+// RegisterRolesAPIHandlerServer registers the http handlers for service RolesAPI to "mux".
+// UnaryRPC     :call RolesAPIServer directly.
 // StreamingRPC :currently unsupported pending https://github.com/grpc/grpc-go/issues/906.
-// Note that using this registration option will cause many gRPC library features to stop working. Consider using RegisterRolesServiceHandlerFromEndpoint instead.
-func RegisterRolesServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux, server RolesServiceServer) error {
+// Note that using this registration option will cause many gRPC library features to stop working. Consider using RegisterRolesAPIHandlerFromEndpoint instead.
+func RegisterRolesAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, server RolesAPIServer) error {
 
-	mux.Handle("GET", pattern_RolesService_ListRoles_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_RolesAPI_ListRoles_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/hfcms.users.v1.RolesService/ListRoles", runtime.WithHTTPPathPattern("/v1/roles"))
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/hfcms.users.v1.RolesAPI/ListRoles", runtime.WithHTTPPathPattern("/v1/roles"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_RolesService_ListRoles_0(rctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_RolesAPI_ListRoles_0(rctx, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
@@ -316,22 +316,22 @@ func RegisterRolesServiceHandlerServer(ctx context.Context, mux *runtime.ServeMu
 			return
 		}
 
-		forward_RolesService_ListRoles_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_RolesAPI_ListRoles_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("GET", pattern_RolesService_GetRole_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_RolesAPI_GetRole_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/hfcms.users.v1.RolesService/GetRole", runtime.WithHTTPPathPattern("/v1/{name=roles/*}"))
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/hfcms.users.v1.RolesAPI/GetRole", runtime.WithHTTPPathPattern("/v1/{name=roles/*}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_RolesService_GetRole_0(rctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_RolesAPI_GetRole_0(rctx, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
@@ -339,22 +339,22 @@ func RegisterRolesServiceHandlerServer(ctx context.Context, mux *runtime.ServeMu
 			return
 		}
 
-		forward_RolesService_GetRole_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_RolesAPI_GetRole_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("POST", pattern_RolesService_CreateRole_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_RolesAPI_CreateRole_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/hfcms.users.v1.RolesService/CreateRole", runtime.WithHTTPPathPattern("/v1/roles"))
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/hfcms.users.v1.RolesAPI/CreateRole", runtime.WithHTTPPathPattern("/v1/roles"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_RolesService_CreateRole_0(rctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_RolesAPI_CreateRole_0(rctx, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
@@ -362,22 +362,22 @@ func RegisterRolesServiceHandlerServer(ctx context.Context, mux *runtime.ServeMu
 			return
 		}
 
-		forward_RolesService_CreateRole_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_RolesAPI_CreateRole_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("PATCH", pattern_RolesService_UpdateRole_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("PATCH", pattern_RolesAPI_UpdateRole_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/hfcms.users.v1.RolesService/UpdateRole", runtime.WithHTTPPathPattern("/v1/{role.name=roles/*/update}"))
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/hfcms.users.v1.RolesAPI/UpdateRole", runtime.WithHTTPPathPattern("/v1/{role.name=roles/*/update}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_RolesService_UpdateRole_0(rctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_RolesAPI_UpdateRole_0(rctx, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
@@ -385,22 +385,22 @@ func RegisterRolesServiceHandlerServer(ctx context.Context, mux *runtime.ServeMu
 			return
 		}
 
-		forward_RolesService_UpdateRole_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_RolesAPI_UpdateRole_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("DELETE", pattern_RolesService_DeleteRole_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("DELETE", pattern_RolesAPI_DeleteRole_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/hfcms.users.v1.RolesService/DeleteRole", runtime.WithHTTPPathPattern("/v1/{name=roles/*/delete}"))
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/hfcms.users.v1.RolesAPI/DeleteRole", runtime.WithHTTPPathPattern("/v1/{name=roles/*/delete}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_RolesService_DeleteRole_0(rctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_RolesAPI_DeleteRole_0(rctx, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
@@ -408,16 +408,16 @@ func RegisterRolesServiceHandlerServer(ctx context.Context, mux *runtime.ServeMu
 			return
 		}
 
-		forward_RolesService_DeleteRole_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_RolesAPI_DeleteRole_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
 	return nil
 }
 
-// RegisterRolesServiceHandlerFromEndpoint is same as RegisterRolesServiceHandler but
+// RegisterRolesAPIHandlerFromEndpoint is same as RegisterRolesAPIHandler but
 // automatically dials to "endpoint" and closes the connection when "ctx" gets done.
-func RegisterRolesServiceHandlerFromEndpoint(ctx context.Context, mux *runtime.ServeMux, endpoint string, opts []grpc.DialOption) (err error) {
+func RegisterRolesAPIHandlerFromEndpoint(ctx context.Context, mux *runtime.ServeMux, endpoint string, opts []grpc.DialOption) (err error) {
 	conn, err := grpc.Dial(endpoint, opts...)
 	if err != nil {
 		return err
@@ -437,119 +437,119 @@ func RegisterRolesServiceHandlerFromEndpoint(ctx context.Context, mux *runtime.S
 		}()
 	}()
 
-	return RegisterRolesServiceHandler(ctx, mux, conn)
+	return RegisterRolesAPIHandler(ctx, mux, conn)
 }
 
-// RegisterRolesServiceHandler registers the http handlers for service RolesService to "mux".
+// RegisterRolesAPIHandler registers the http handlers for service RolesAPI to "mux".
 // The handlers forward requests to the grpc endpoint over "conn".
-func RegisterRolesServiceHandler(ctx context.Context, mux *runtime.ServeMux, conn *grpc.ClientConn) error {
-	return RegisterRolesServiceHandlerClient(ctx, mux, NewRolesServiceClient(conn))
+func RegisterRolesAPIHandler(ctx context.Context, mux *runtime.ServeMux, conn *grpc.ClientConn) error {
+	return RegisterRolesAPIHandlerClient(ctx, mux, NewRolesAPIClient(conn))
 }
 
-// RegisterRolesServiceHandlerClient registers the http handlers for service RolesService
-// to "mux". The handlers forward requests to the grpc endpoint over the given implementation of "RolesServiceClient".
-// Note: the gRPC framework executes interceptors within the gRPC handler. If the passed in "RolesServiceClient"
+// RegisterRolesAPIHandlerClient registers the http handlers for service RolesAPI
+// to "mux". The handlers forward requests to the grpc endpoint over the given implementation of "RolesAPIClient".
+// Note: the gRPC framework executes interceptors within the gRPC handler. If the passed in "RolesAPIClient"
 // doesn't go through the normal gRPC flow (creating a gRPC client etc.) then it will be up to the passed in
-// "RolesServiceClient" to call the correct interceptors.
-func RegisterRolesServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux, client RolesServiceClient) error {
+// "RolesAPIClient" to call the correct interceptors.
+func RegisterRolesAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, client RolesAPIClient) error {
 
-	mux.Handle("GET", pattern_RolesService_ListRoles_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_RolesAPI_ListRoles_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/hfcms.users.v1.RolesService/ListRoles", runtime.WithHTTPPathPattern("/v1/roles"))
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/hfcms.users.v1.RolesAPI/ListRoles", runtime.WithHTTPPathPattern("/v1/roles"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_RolesService_ListRoles_0(rctx, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_RolesAPI_ListRoles_0(rctx, inboundMarshaler, client, req, pathParams)
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_RolesService_ListRoles_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_RolesAPI_ListRoles_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("GET", pattern_RolesService_GetRole_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_RolesAPI_GetRole_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/hfcms.users.v1.RolesService/GetRole", runtime.WithHTTPPathPattern("/v1/{name=roles/*}"))
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/hfcms.users.v1.RolesAPI/GetRole", runtime.WithHTTPPathPattern("/v1/{name=roles/*}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_RolesService_GetRole_0(rctx, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_RolesAPI_GetRole_0(rctx, inboundMarshaler, client, req, pathParams)
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_RolesService_GetRole_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_RolesAPI_GetRole_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("POST", pattern_RolesService_CreateRole_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_RolesAPI_CreateRole_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/hfcms.users.v1.RolesService/CreateRole", runtime.WithHTTPPathPattern("/v1/roles"))
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/hfcms.users.v1.RolesAPI/CreateRole", runtime.WithHTTPPathPattern("/v1/roles"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_RolesService_CreateRole_0(rctx, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_RolesAPI_CreateRole_0(rctx, inboundMarshaler, client, req, pathParams)
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_RolesService_CreateRole_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_RolesAPI_CreateRole_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("PATCH", pattern_RolesService_UpdateRole_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("PATCH", pattern_RolesAPI_UpdateRole_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/hfcms.users.v1.RolesService/UpdateRole", runtime.WithHTTPPathPattern("/v1/{role.name=roles/*/update}"))
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/hfcms.users.v1.RolesAPI/UpdateRole", runtime.WithHTTPPathPattern("/v1/{role.name=roles/*/update}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_RolesService_UpdateRole_0(rctx, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_RolesAPI_UpdateRole_0(rctx, inboundMarshaler, client, req, pathParams)
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_RolesService_UpdateRole_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_RolesAPI_UpdateRole_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("DELETE", pattern_RolesService_DeleteRole_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("DELETE", pattern_RolesAPI_DeleteRole_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/hfcms.users.v1.RolesService/DeleteRole", runtime.WithHTTPPathPattern("/v1/{name=roles/*/delete}"))
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/hfcms.users.v1.RolesAPI/DeleteRole", runtime.WithHTTPPathPattern("/v1/{name=roles/*/delete}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_RolesService_DeleteRole_0(rctx, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_RolesAPI_DeleteRole_0(rctx, inboundMarshaler, client, req, pathParams)
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_RolesService_DeleteRole_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_RolesAPI_DeleteRole_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -557,25 +557,25 @@ func RegisterRolesServiceHandlerClient(ctx context.Context, mux *runtime.ServeMu
 }
 
 var (
-	pattern_RolesService_ListRoles_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "roles"}, ""))
+	pattern_RolesAPI_ListRoles_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "roles"}, ""))
 
-	pattern_RolesService_GetRole_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 2, 5, 2}, []string{"v1", "roles", "name"}, ""))
+	pattern_RolesAPI_GetRole_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 2, 5, 2}, []string{"v1", "roles", "name"}, ""))
 
-	pattern_RolesService_CreateRole_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "roles"}, ""))
+	pattern_RolesAPI_CreateRole_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "roles"}, ""))
 
-	pattern_RolesService_UpdateRole_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 2, 2, 4, 3, 5, 3}, []string{"v1", "roles", "update", "role.name"}, ""))
+	pattern_RolesAPI_UpdateRole_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 2, 2, 4, 3, 5, 3}, []string{"v1", "roles", "update", "role.name"}, ""))
 
-	pattern_RolesService_DeleteRole_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 2, 2, 4, 3, 5, 3}, []string{"v1", "roles", "delete", "name"}, ""))
+	pattern_RolesAPI_DeleteRole_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 2, 2, 4, 3, 5, 3}, []string{"v1", "roles", "delete", "name"}, ""))
 )
 
 var (
-	forward_RolesService_ListRoles_0 = runtime.ForwardResponseMessage
+	forward_RolesAPI_ListRoles_0 = runtime.ForwardResponseMessage
 
-	forward_RolesService_GetRole_0 = runtime.ForwardResponseMessage
+	forward_RolesAPI_GetRole_0 = runtime.ForwardResponseMessage
 
-	forward_RolesService_CreateRole_0 = runtime.ForwardResponseMessage
+	forward_RolesAPI_CreateRole_0 = runtime.ForwardResponseMessage
 
-	forward_RolesService_UpdateRole_0 = runtime.ForwardResponseMessage
+	forward_RolesAPI_UpdateRole_0 = runtime.ForwardResponseMessage
 
-	forward_RolesService_DeleteRole_0 = runtime.ForwardResponseMessage
+	forward_RolesAPI_DeleteRole_0 = runtime.ForwardResponseMessage
 )

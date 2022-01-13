@@ -12,12 +12,13 @@ import (
 
 // This is a compile-time assertion to ensure that this generated file
 // is compatible with the grpc package it is being compiled against.
+// Requires gRPC-Go v1.32.0 or later.
 const _ = grpc.SupportPackageIsVersion7
 
-// RolesServiceClient is the client API for RolesService service.
+// RolesAPIClient is the client API for RolesAPI service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type RolesServiceClient interface {
+type RolesAPIClient interface {
 	ListRoles(ctx context.Context, in *ListRolesRequest, opts ...grpc.CallOption) (*ListRolesResponse, error)
 	GetRole(ctx context.Context, in *GetRoleRequest, opts ...grpc.CallOption) (*Role, error)
 	CreateRole(ctx context.Context, in *CreateRoleRequest, opts ...grpc.CallOption) (*Role, error)
@@ -25,216 +26,219 @@ type RolesServiceClient interface {
 	DeleteRole(ctx context.Context, in *DeleteRoleRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
-type rolesServiceClient struct {
+type rolesAPIClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewRolesServiceClient(cc grpc.ClientConnInterface) RolesServiceClient {
-	return &rolesServiceClient{cc}
+func NewRolesAPIClient(cc grpc.ClientConnInterface) RolesAPIClient {
+	return &rolesAPIClient{cc}
 }
 
-func (c *rolesServiceClient) ListRoles(ctx context.Context, in *ListRolesRequest, opts ...grpc.CallOption) (*ListRolesResponse, error) {
+func (c *rolesAPIClient) ListRoles(ctx context.Context, in *ListRolesRequest, opts ...grpc.CallOption) (*ListRolesResponse, error) {
 	out := new(ListRolesResponse)
-	err := c.cc.Invoke(ctx, "/hfcms.users.v1.RolesService/ListRoles", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/hfcms.users.v1.RolesAPI/ListRoles", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *rolesServiceClient) GetRole(ctx context.Context, in *GetRoleRequest, opts ...grpc.CallOption) (*Role, error) {
+func (c *rolesAPIClient) GetRole(ctx context.Context, in *GetRoleRequest, opts ...grpc.CallOption) (*Role, error) {
 	out := new(Role)
-	err := c.cc.Invoke(ctx, "/hfcms.users.v1.RolesService/GetRole", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/hfcms.users.v1.RolesAPI/GetRole", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *rolesServiceClient) CreateRole(ctx context.Context, in *CreateRoleRequest, opts ...grpc.CallOption) (*Role, error) {
+func (c *rolesAPIClient) CreateRole(ctx context.Context, in *CreateRoleRequest, opts ...grpc.CallOption) (*Role, error) {
 	out := new(Role)
-	err := c.cc.Invoke(ctx, "/hfcms.users.v1.RolesService/CreateRole", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/hfcms.users.v1.RolesAPI/CreateRole", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *rolesServiceClient) UpdateRole(ctx context.Context, in *UpdateRoleRequest, opts ...grpc.CallOption) (*Role, error) {
+func (c *rolesAPIClient) UpdateRole(ctx context.Context, in *UpdateRoleRequest, opts ...grpc.CallOption) (*Role, error) {
 	out := new(Role)
-	err := c.cc.Invoke(ctx, "/hfcms.users.v1.RolesService/UpdateRole", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/hfcms.users.v1.RolesAPI/UpdateRole", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *rolesServiceClient) DeleteRole(ctx context.Context, in *DeleteRoleRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+func (c *rolesAPIClient) DeleteRole(ctx context.Context, in *DeleteRoleRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, "/hfcms.users.v1.RolesService/DeleteRole", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/hfcms.users.v1.RolesAPI/DeleteRole", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// RolesServiceServer is the server API for RolesService service.
-// All implementations must embed UnimplementedRolesServiceServer
+// RolesAPIServer is the server API for RolesAPI service.
+// All implementations must embed UnimplementedRolesAPIServer
 // for forward compatibility
-type RolesServiceServer interface {
+type RolesAPIServer interface {
 	ListRoles(context.Context, *ListRolesRequest) (*ListRolesResponse, error)
 	GetRole(context.Context, *GetRoleRequest) (*Role, error)
 	CreateRole(context.Context, *CreateRoleRequest) (*Role, error)
 	UpdateRole(context.Context, *UpdateRoleRequest) (*Role, error)
 	DeleteRole(context.Context, *DeleteRoleRequest) (*emptypb.Empty, error)
-	mustEmbedUnimplementedRolesServiceServer()
+	mustEmbedUnimplementedRolesAPIServer()
 }
 
-// UnimplementedRolesServiceServer must be embedded to have forward compatible implementations.
-type UnimplementedRolesServiceServer struct {
+// UnimplementedRolesAPIServer must be embedded to have forward compatible implementations.
+type UnimplementedRolesAPIServer struct {
 }
 
-func (UnimplementedRolesServiceServer) ListRoles(context.Context, *ListRolesRequest) (*ListRolesResponse, error) {
+func (UnimplementedRolesAPIServer) ListRoles(context.Context, *ListRolesRequest) (*ListRolesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListRoles not implemented")
 }
-func (UnimplementedRolesServiceServer) GetRole(context.Context, *GetRoleRequest) (*Role, error) {
+func (UnimplementedRolesAPIServer) GetRole(context.Context, *GetRoleRequest) (*Role, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetRole not implemented")
 }
-func (UnimplementedRolesServiceServer) CreateRole(context.Context, *CreateRoleRequest) (*Role, error) {
+func (UnimplementedRolesAPIServer) CreateRole(context.Context, *CreateRoleRequest) (*Role, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateRole not implemented")
 }
-func (UnimplementedRolesServiceServer) UpdateRole(context.Context, *UpdateRoleRequest) (*Role, error) {
+func (UnimplementedRolesAPIServer) UpdateRole(context.Context, *UpdateRoleRequest) (*Role, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateRole not implemented")
 }
-func (UnimplementedRolesServiceServer) DeleteRole(context.Context, *DeleteRoleRequest) (*emptypb.Empty, error) {
+func (UnimplementedRolesAPIServer) DeleteRole(context.Context, *DeleteRoleRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteRole not implemented")
 }
-func (UnimplementedRolesServiceServer) mustEmbedUnimplementedRolesServiceServer() {}
+func (UnimplementedRolesAPIServer) mustEmbedUnimplementedRolesAPIServer() {}
 
-// UnsafeRolesServiceServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to RolesServiceServer will
+// UnsafeRolesAPIServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to RolesAPIServer will
 // result in compilation errors.
-type UnsafeRolesServiceServer interface {
-	mustEmbedUnimplementedRolesServiceServer()
+type UnsafeRolesAPIServer interface {
+	mustEmbedUnimplementedRolesAPIServer()
 }
 
-func RegisterRolesServiceServer(s *grpc.Server, srv RolesServiceServer) {
-	s.RegisterService(&_RolesService_serviceDesc, srv)
+func RegisterRolesAPIServer(s grpc.ServiceRegistrar, srv RolesAPIServer) {
+	s.RegisterService(&RolesAPI_ServiceDesc, srv)
 }
 
-func _RolesService_ListRoles_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _RolesAPI_ListRoles_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ListRolesRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(RolesServiceServer).ListRoles(ctx, in)
+		return srv.(RolesAPIServer).ListRoles(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/hfcms.users.v1.RolesService/ListRoles",
+		FullMethod: "/hfcms.users.v1.RolesAPI/ListRoles",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RolesServiceServer).ListRoles(ctx, req.(*ListRolesRequest))
+		return srv.(RolesAPIServer).ListRoles(ctx, req.(*ListRolesRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _RolesService_GetRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _RolesAPI_GetRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetRoleRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(RolesServiceServer).GetRole(ctx, in)
+		return srv.(RolesAPIServer).GetRole(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/hfcms.users.v1.RolesService/GetRole",
+		FullMethod: "/hfcms.users.v1.RolesAPI/GetRole",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RolesServiceServer).GetRole(ctx, req.(*GetRoleRequest))
+		return srv.(RolesAPIServer).GetRole(ctx, req.(*GetRoleRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _RolesService_CreateRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _RolesAPI_CreateRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreateRoleRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(RolesServiceServer).CreateRole(ctx, in)
+		return srv.(RolesAPIServer).CreateRole(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/hfcms.users.v1.RolesService/CreateRole",
+		FullMethod: "/hfcms.users.v1.RolesAPI/CreateRole",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RolesServiceServer).CreateRole(ctx, req.(*CreateRoleRequest))
+		return srv.(RolesAPIServer).CreateRole(ctx, req.(*CreateRoleRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _RolesService_UpdateRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _RolesAPI_UpdateRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(UpdateRoleRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(RolesServiceServer).UpdateRole(ctx, in)
+		return srv.(RolesAPIServer).UpdateRole(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/hfcms.users.v1.RolesService/UpdateRole",
+		FullMethod: "/hfcms.users.v1.RolesAPI/UpdateRole",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RolesServiceServer).UpdateRole(ctx, req.(*UpdateRoleRequest))
+		return srv.(RolesAPIServer).UpdateRole(ctx, req.(*UpdateRoleRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _RolesService_DeleteRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _RolesAPI_DeleteRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DeleteRoleRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(RolesServiceServer).DeleteRole(ctx, in)
+		return srv.(RolesAPIServer).DeleteRole(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/hfcms.users.v1.RolesService/DeleteRole",
+		FullMethod: "/hfcms.users.v1.RolesAPI/DeleteRole",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RolesServiceServer).DeleteRole(ctx, req.(*DeleteRoleRequest))
+		return srv.(RolesAPIServer).DeleteRole(ctx, req.(*DeleteRoleRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-var _RolesService_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "hfcms.users.v1.RolesService",
-	HandlerType: (*RolesServiceServer)(nil),
+// RolesAPI_ServiceDesc is the grpc.ServiceDesc for RolesAPI service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var RolesAPI_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "hfcms.users.v1.RolesAPI",
+	HandlerType: (*RolesAPIServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "ListRoles",
-			Handler:    _RolesService_ListRoles_Handler,
+			Handler:    _RolesAPI_ListRoles_Handler,
 		},
 		{
 			MethodName: "GetRole",
-			Handler:    _RolesService_GetRole_Handler,
+			Handler:    _RolesAPI_GetRole_Handler,
 		},
 		{
 			MethodName: "CreateRole",
-			Handler:    _RolesService_CreateRole_Handler,
+			Handler:    _RolesAPI_CreateRole_Handler,
 		},
 		{
 			MethodName: "UpdateRole",
-			Handler:    _RolesService_UpdateRole_Handler,
+			Handler:    _RolesAPI_UpdateRole_Handler,
 		},
 		{
 			MethodName: "DeleteRole",
-			Handler:    _RolesService_DeleteRole_Handler,
+			Handler:    _RolesAPI_DeleteRole_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

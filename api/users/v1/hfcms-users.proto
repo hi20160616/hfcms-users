@@ -14,6 +14,9 @@ service UsersAPI {
     option (google.api.http) = {
       get: "/v1/{parent=rols/*}/users"
       additional_bindings {
+        get: "/v1/{parent=usergroups/*}/users"
+      }
+      additional_bindings {
         get: "/v1/{parent=departments/*}/users"
       }
     };
@@ -102,6 +105,8 @@ message User{
   string avatar_url = 7;
   string phone =8;
   string user_ip = 9;
-  google.protobuf.Timestamp create_time = 10;
-  google.protobuf.Timestamp update_time = 11;
+  int32 state = 10;
+  int32 deleted = 11;
+  google.protobuf.Timestamp create_time = 12;
+  google.protobuf.Timestamp update_time = 13;
 }

@@ -12,12 +12,13 @@ import (
 
 // This is a compile-time assertion to ensure that this generated file
 // is compatible with the grpc package it is being compiled against.
+// Requires gRPC-Go v1.32.0 or later.
 const _ = grpc.SupportPackageIsVersion7
 
-// PermissionServiceClient is the client API for PermissionService service.
+// PermissionsAPIClient is the client API for PermissionsAPI service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type PermissionServiceClient interface {
+type PermissionsAPIClient interface {
 	ListPermissions(ctx context.Context, in *ListPermissionsRequest, opts ...grpc.CallOption) (*ListPermissionsResponse, error)
 	GetPermission(ctx context.Context, in *GetPermissionRequest, opts ...grpc.CallOption) (*Permission, error)
 	CreatePermission(ctx context.Context, in *CreatePermissionRequest, opts ...grpc.CallOption) (*Permission, error)
@@ -25,216 +26,219 @@ type PermissionServiceClient interface {
 	DeletePermission(ctx context.Context, in *DeletePermissionRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
-type permissionServiceClient struct {
+type permissionsAPIClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewPermissionServiceClient(cc grpc.ClientConnInterface) PermissionServiceClient {
-	return &permissionServiceClient{cc}
+func NewPermissionsAPIClient(cc grpc.ClientConnInterface) PermissionsAPIClient {
+	return &permissionsAPIClient{cc}
 }
 
-func (c *permissionServiceClient) ListPermissions(ctx context.Context, in *ListPermissionsRequest, opts ...grpc.CallOption) (*ListPermissionsResponse, error) {
+func (c *permissionsAPIClient) ListPermissions(ctx context.Context, in *ListPermissionsRequest, opts ...grpc.CallOption) (*ListPermissionsResponse, error) {
 	out := new(ListPermissionsResponse)
-	err := c.cc.Invoke(ctx, "/hfcms.users.v1.PermissionService/ListPermissions", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/hfcms.users.v1.PermissionsAPI/ListPermissions", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *permissionServiceClient) GetPermission(ctx context.Context, in *GetPermissionRequest, opts ...grpc.CallOption) (*Permission, error) {
+func (c *permissionsAPIClient) GetPermission(ctx context.Context, in *GetPermissionRequest, opts ...grpc.CallOption) (*Permission, error) {
 	out := new(Permission)
-	err := c.cc.Invoke(ctx, "/hfcms.users.v1.PermissionService/GetPermission", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/hfcms.users.v1.PermissionsAPI/GetPermission", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *permissionServiceClient) CreatePermission(ctx context.Context, in *CreatePermissionRequest, opts ...grpc.CallOption) (*Permission, error) {
+func (c *permissionsAPIClient) CreatePermission(ctx context.Context, in *CreatePermissionRequest, opts ...grpc.CallOption) (*Permission, error) {
 	out := new(Permission)
-	err := c.cc.Invoke(ctx, "/hfcms.users.v1.PermissionService/CreatePermission", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/hfcms.users.v1.PermissionsAPI/CreatePermission", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *permissionServiceClient) UpdatePermission(ctx context.Context, in *UpdatePermissionRequest, opts ...grpc.CallOption) (*Permission, error) {
+func (c *permissionsAPIClient) UpdatePermission(ctx context.Context, in *UpdatePermissionRequest, opts ...grpc.CallOption) (*Permission, error) {
 	out := new(Permission)
-	err := c.cc.Invoke(ctx, "/hfcms.users.v1.PermissionService/UpdatePermission", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/hfcms.users.v1.PermissionsAPI/UpdatePermission", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *permissionServiceClient) DeletePermission(ctx context.Context, in *DeletePermissionRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+func (c *permissionsAPIClient) DeletePermission(ctx context.Context, in *DeletePermissionRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, "/hfcms.users.v1.PermissionService/DeletePermission", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/hfcms.users.v1.PermissionsAPI/DeletePermission", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// PermissionServiceServer is the server API for PermissionService service.
-// All implementations must embed UnimplementedPermissionServiceServer
+// PermissionsAPIServer is the server API for PermissionsAPI service.
+// All implementations must embed UnimplementedPermissionsAPIServer
 // for forward compatibility
-type PermissionServiceServer interface {
+type PermissionsAPIServer interface {
 	ListPermissions(context.Context, *ListPermissionsRequest) (*ListPermissionsResponse, error)
 	GetPermission(context.Context, *GetPermissionRequest) (*Permission, error)
 	CreatePermission(context.Context, *CreatePermissionRequest) (*Permission, error)
 	UpdatePermission(context.Context, *UpdatePermissionRequest) (*Permission, error)
 	DeletePermission(context.Context, *DeletePermissionRequest) (*emptypb.Empty, error)
-	mustEmbedUnimplementedPermissionServiceServer()
+	mustEmbedUnimplementedPermissionsAPIServer()
 }
 
-// UnimplementedPermissionServiceServer must be embedded to have forward compatible implementations.
-type UnimplementedPermissionServiceServer struct {
+// UnimplementedPermissionsAPIServer must be embedded to have forward compatible implementations.
+type UnimplementedPermissionsAPIServer struct {
 }
 
-func (UnimplementedPermissionServiceServer) ListPermissions(context.Context, *ListPermissionsRequest) (*ListPermissionsResponse, error) {
+func (UnimplementedPermissionsAPIServer) ListPermissions(context.Context, *ListPermissionsRequest) (*ListPermissionsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListPermissions not implemented")
 }
-func (UnimplementedPermissionServiceServer) GetPermission(context.Context, *GetPermissionRequest) (*Permission, error) {
+func (UnimplementedPermissionsAPIServer) GetPermission(context.Context, *GetPermissionRequest) (*Permission, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetPermission not implemented")
 }
-func (UnimplementedPermissionServiceServer) CreatePermission(context.Context, *CreatePermissionRequest) (*Permission, error) {
+func (UnimplementedPermissionsAPIServer) CreatePermission(context.Context, *CreatePermissionRequest) (*Permission, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreatePermission not implemented")
 }
-func (UnimplementedPermissionServiceServer) UpdatePermission(context.Context, *UpdatePermissionRequest) (*Permission, error) {
+func (UnimplementedPermissionsAPIServer) UpdatePermission(context.Context, *UpdatePermissionRequest) (*Permission, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdatePermission not implemented")
 }
-func (UnimplementedPermissionServiceServer) DeletePermission(context.Context, *DeletePermissionRequest) (*emptypb.Empty, error) {
+func (UnimplementedPermissionsAPIServer) DeletePermission(context.Context, *DeletePermissionRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeletePermission not implemented")
 }
-func (UnimplementedPermissionServiceServer) mustEmbedUnimplementedPermissionServiceServer() {}
+func (UnimplementedPermissionsAPIServer) mustEmbedUnimplementedPermissionsAPIServer() {}
 
-// UnsafePermissionServiceServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to PermissionServiceServer will
+// UnsafePermissionsAPIServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to PermissionsAPIServer will
 // result in compilation errors.
-type UnsafePermissionServiceServer interface {
-	mustEmbedUnimplementedPermissionServiceServer()
+type UnsafePermissionsAPIServer interface {
+	mustEmbedUnimplementedPermissionsAPIServer()
 }
 
-func RegisterPermissionServiceServer(s *grpc.Server, srv PermissionServiceServer) {
-	s.RegisterService(&_PermissionService_serviceDesc, srv)
+func RegisterPermissionsAPIServer(s grpc.ServiceRegistrar, srv PermissionsAPIServer) {
+	s.RegisterService(&PermissionsAPI_ServiceDesc, srv)
 }
 
-func _PermissionService_ListPermissions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _PermissionsAPI_ListPermissions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ListPermissionsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(PermissionServiceServer).ListPermissions(ctx, in)
+		return srv.(PermissionsAPIServer).ListPermissions(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/hfcms.users.v1.PermissionService/ListPermissions",
+		FullMethod: "/hfcms.users.v1.PermissionsAPI/ListPermissions",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PermissionServiceServer).ListPermissions(ctx, req.(*ListPermissionsRequest))
+		return srv.(PermissionsAPIServer).ListPermissions(ctx, req.(*ListPermissionsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _PermissionService_GetPermission_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _PermissionsAPI_GetPermission_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetPermissionRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(PermissionServiceServer).GetPermission(ctx, in)
+		return srv.(PermissionsAPIServer).GetPermission(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/hfcms.users.v1.PermissionService/GetPermission",
+		FullMethod: "/hfcms.users.v1.PermissionsAPI/GetPermission",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PermissionServiceServer).GetPermission(ctx, req.(*GetPermissionRequest))
+		return srv.(PermissionsAPIServer).GetPermission(ctx, req.(*GetPermissionRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _PermissionService_CreatePermission_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _PermissionsAPI_CreatePermission_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreatePermissionRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(PermissionServiceServer).CreatePermission(ctx, in)
+		return srv.(PermissionsAPIServer).CreatePermission(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/hfcms.users.v1.PermissionService/CreatePermission",
+		FullMethod: "/hfcms.users.v1.PermissionsAPI/CreatePermission",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PermissionServiceServer).CreatePermission(ctx, req.(*CreatePermissionRequest))
+		return srv.(PermissionsAPIServer).CreatePermission(ctx, req.(*CreatePermissionRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _PermissionService_UpdatePermission_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _PermissionsAPI_UpdatePermission_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(UpdatePermissionRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(PermissionServiceServer).UpdatePermission(ctx, in)
+		return srv.(PermissionsAPIServer).UpdatePermission(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/hfcms.users.v1.PermissionService/UpdatePermission",
+		FullMethod: "/hfcms.users.v1.PermissionsAPI/UpdatePermission",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PermissionServiceServer).UpdatePermission(ctx, req.(*UpdatePermissionRequest))
+		return srv.(PermissionsAPIServer).UpdatePermission(ctx, req.(*UpdatePermissionRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _PermissionService_DeletePermission_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _PermissionsAPI_DeletePermission_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DeletePermissionRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(PermissionServiceServer).DeletePermission(ctx, in)
+		return srv.(PermissionsAPIServer).DeletePermission(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/hfcms.users.v1.PermissionService/DeletePermission",
+		FullMethod: "/hfcms.users.v1.PermissionsAPI/DeletePermission",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PermissionServiceServer).DeletePermission(ctx, req.(*DeletePermissionRequest))
+		return srv.(PermissionsAPIServer).DeletePermission(ctx, req.(*DeletePermissionRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-var _PermissionService_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "hfcms.users.v1.PermissionService",
-	HandlerType: (*PermissionServiceServer)(nil),
+// PermissionsAPI_ServiceDesc is the grpc.ServiceDesc for PermissionsAPI service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var PermissionsAPI_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "hfcms.users.v1.PermissionsAPI",
+	HandlerType: (*PermissionsAPIServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "ListPermissions",
-			Handler:    _PermissionService_ListPermissions_Handler,
+			Handler:    _PermissionsAPI_ListPermissions_Handler,
 		},
 		{
 			MethodName: "GetPermission",
-			Handler:    _PermissionService_GetPermission_Handler,
+			Handler:    _PermissionsAPI_GetPermission_Handler,
 		},
 		{
 			MethodName: "CreatePermission",
-			Handler:    _PermissionService_CreatePermission_Handler,
+			Handler:    _PermissionsAPI_CreatePermission_Handler,
 		},
 		{
 			MethodName: "UpdatePermission",
-			Handler:    _PermissionService_UpdatePermission_Handler,
+			Handler:    _PermissionsAPI_UpdatePermission_Handler,
 		},
 		{
 			MethodName: "DeletePermission",
-			Handler:    _PermissionService_DeletePermission_Handler,
+			Handler:    _PermissionsAPI_DeletePermission_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
