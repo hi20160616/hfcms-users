@@ -7,7 +7,7 @@ import "google/protobuf/empty.proto";
 
 option go_package = "github.com/hi20160616/hfcms-users/api/users/v1;v1";
 
-service RolesService {
+service RolesAPI {
   rpc ListRoles(ListRolesRequest) returns (ListRolesResponse) {
     option (google.api.http) = {
       get: "/v1/roles"
@@ -72,7 +72,12 @@ message DeleteRoleRequest {
 
 message Role{
   string name = 1;
-  string role_id = 2;
-  string role_name = 3;
-  repeated string permission_ids = 4;
+  int32 role_id = 2;
+  int32 parent_id = 3;
+  string role_code = 4;
+  string role_name = 5;
+  string description = 6;
+  int32 state = 7;
+  int32 deleted = 8;
+  google.protobuf.Timestamp update_time = 9;
 }

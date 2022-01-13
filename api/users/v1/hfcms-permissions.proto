@@ -7,7 +7,7 @@ import "google/protobuf/empty.proto";
 
 option go_package = "github.com/hi20160616/hfcms-users/api/users/v1;v1";
 
-service PermissionService {
+service PermissionsAPI {
   rpc ListPermissions(ListPermissionsRequest) returns (ListPermissionsResponse) {
     option (google.api.http) = {
       get: "/v1/permissions"
@@ -72,6 +72,12 @@ message DeletePermissionRequest {
 
 message Permission{
   string name = 1;
-  string permission_id = 2;
-  string permission_name = 3;
+  int32 permission_id = 2;
+  int32 parent_id = 3;
+  string permission_code = 4;
+  string permission_name = 5;
+  string description = 6;
+  int32 state = 7;
+  int32 deleted = 8;
+  google.protobuf.Timestamp update_time = 9;
 }

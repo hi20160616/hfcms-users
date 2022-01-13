@@ -1,0 +1,83 @@
+syntax = "proto3";
+
+package hfcms.users.v1;
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+
+option go_package = "github.com/hi20160616/hfcms-users/api/users/v1;v1";
+
+service UsergroupsService {
+  rpc ListUsergroups(ListUsergroupsRequest) returns (ListUsergroupsResponse) {
+    option (google.api.http) = {
+      get: "/v1/usergroups"
+    };
+  }
+  rpc GetUsergroup(GetUsergroupRequest) returns (Usergroup) {
+    option (google.api.http) = {
+      get: "/v1/{name=usergroups/*}"
+    };
+  }
+  rpc CreateUsergroup(CreateUsergroupRequest) returns (Usergroup) {
+    option (google.api.http) = {
+      post: "/v1/usergroups"
+      body: "usergroup"
+    };
+  }
+  rpc UpdateUsergroup(UpdateUsergroupRequest) returns (Usergroup) {
+    option (google.api.http) = {
+      patch: "/v1/{usergroup.name=usergroups/*/update}"
+      body: "usergroup"
+    };
+  }
+  rpc DeleteUsergroup(DeleteUsergroupRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/v1/{name=usergroups/*/delete}"
+    };
+  }
+}
+
+message ListUsergroupsRequest {
+  // The parent resource name
+  string parent = 1;
+
+  // The maximum number of items to return.
+  int32 page_size = 2;
+
+  // The next_page_token value returned from a previous List request, if any.
+  string page_token = 3;
+}
+
+message ListUsergroupsResponse {
+  repeated Usergroup usergroups = 1;
+  string next_page_token = 2;
+}
+
+message GetUsergroupRequest {
+  string name = 1;
+}
+
+message CreateUsergroupRequest {
+  string name = 1;
+  Usergroup usergroup = 2;
+}
+
+message UpdateUsergroupRequest {
+  Usergroup usergroup = 1;
+}
+
+message DeleteUsergroupRequest {
+  string name = 1;
+}
+
+message Usergroup{
+  string name = 1;
+  int32 usergroup_id = 2;
+  int32 parent_id = 3;
+  string usergroup_code = 4;
+  string usergroup_name = 5;
+  string description = 6;
+  int32 state = 7;
+  int32 deleted = 8;
+  google.protobuf.Timestamp update_time = 9;
+}

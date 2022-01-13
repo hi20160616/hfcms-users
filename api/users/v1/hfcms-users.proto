@@ -9,7 +9,7 @@ import "google/protobuf/empty.proto";
 
 option go_package = "github.com/hi20160616/hfcms-users/api/users/v1;v1";
 
-service UserService {
+service UsersAPI {
   rpc ListUsers(ListUsersRequest) returns (ListUsersResponse) {
     option (google.api.http) = {
       get: "/v1/{parent=rols/*}/users"
