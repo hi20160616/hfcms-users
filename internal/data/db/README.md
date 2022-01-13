@@ -22,7 +22,7 @@ MARIADB\_ROOT\_PASSWORD=`my-secret-pw`
 ```
 mysql> ALTER USER 'root'@'localhost' IDENTIFIED BY '[newpassword]';
 ```
-2.Create tables:
+2.Create tables:  
 Database
 ```
 DROP database hfcms_users;
@@ -252,7 +252,7 @@ desc usergroups;
 desc usergroup_users;
 desc role_usergroups;
 ```
-![用户中心—完整版](https://pic2.zhimg.com/v2-4ffca73291dcf129cd466a4cb604865d_r.jpg "用户中心—完整版")
+![用户中心—完整版](./UsersTableDesign.jpeg "用户中心—完整版")
 Output:
 ```
 +-----------+---------------------+-------------------------------------------+------------------+
