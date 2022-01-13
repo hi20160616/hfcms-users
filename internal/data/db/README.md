@@ -1,5 +1,5 @@
 # 1. MariaDB
-Refer:
+Refer:  
 https://hub.docker.com/\_/mariadb  
 https://zhuanlan.zhihu.com/p/97035035  
 ## 1.1. docker
@@ -25,11 +25,11 @@ mysql> ALTER USER 'root'@'localhost' IDENTIFIED BY '[newpassword]';
 ```
 2. Creating database dumps
 ```
-$ docker exec hfcms-mariadb sh -c 'exec mysqldump --all-databases -uroot -p"$MARIADB_ROOT_PASSWORD"' > ./all-databases.sql
+$ docker exec hfcms-mariadb sh -c 'exec mysqldump -uroot -p"$MARIADB_ROOT_PASSWORD" hfcms_users' > ./hfcms_users.sql
 ```
 3. Restoring data from dump files
 ```
-$ docker exec -i hfcms-mariadb sh -c 'exec mysql -uroot -p"$MARIADB_ROOT_PASSWORD"' < ./all-databases.sql
+$ docker exec -i hfcms-mariadb sh -c 'exec mysql -uroot -p"$MARIADB_ROOT_PASSWORD" hfcms_users' < ./hfcms_users.sql
 ```
 4. Create tables:  
 ![用户中心—完整版](./UsersTableDesign.jpeg "用户中心—完整版")
