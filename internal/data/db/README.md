@@ -67,6 +67,20 @@ desc users;
 | update_time | timestamp       | NO   |     | current_timestamp() | on update current_timestamp() |
 +-------------+-----------------+------+-----+---------------------+-------------------------------+
 ``` 
+Permissions
+```
+CREATE TABLE IF NOT EXISTS roles (
+  id int(10) NOT NULL AUTO_INCREMENT,
+  parent_id INT(10),
+  code VARCHAR(255),
+  name VARCHAR(255),
+  description VARCHAR(255),
+  state TINYINT(1) COMMENT 'user state: 0=normal, 1=disable',
+  deleted TINYINT(1) DEFAULT 0 COMMENT 'soft deleted: 0=undelete,1=deleted',
+  update_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  UNIQUE KEY (id)
+);
+```
 Roles
 ```
 CREATE TABLE IF NOT EXISTS roles (
@@ -75,6 +89,8 @@ CREATE TABLE IF NOT EXISTS roles (
   code VARCHAR(255),
   name VARCHAR(255),
   description VARCHAR(255),
+  state TINYINT(1) COMMENT 'user state: 0=normal, 1=disable',
+  deleted TINYINT(1) DEFAULT 0 COMMENT 'soft deleted: 0=undelete,1=deleted',
   update_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (id),
 );
@@ -90,16 +106,54 @@ desc roles;
 | update_time | timestamp    | NO   |     | current_timestamp() | on update current_timestamp() |
 +-------------+--------------+------+-----+---------------------+-------------------------------+
 ```
-Permissions
+Usergroups
 ```
-CREATE TABLE IF NOT EXISTS roles (
+CREATE TABLE IF NOT EXISTS usergroups (
   id int(10) NOT NULL AUTO_INCREMENT,
   parent_id INT(10),
   code VARCHAR(255),
   name VARCHAR(255),
   description VARCHAR(255),
+  state TINYINT(1) COMMENT 'user state: 0=normal, 1=disable',
+  deleted TINYINT(1) DEFAULT 0 COMMENT 'soft deleted: 0=undelete,1=deleted',
   update_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  UNIQUE KEY (id)
+  PRIMARY KEY (id),
+);
+```
+Users Role
+```
+CREATE TABLE IF NOT EXISTS users_role (
+  id int(10) NOT NULL AUTO_INCREMENT,
+  user_id INT(10),
+  role_id INT(10),
+  state TINYINT(1) COMMENT 'user state: 0=normal, 1=disable',
+  deleted TINYINT(1) DEFAULT 0 COMMENT 'soft deleted: 0=undelete,1=deleted',
+  update_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+);
+```
+Role Permissions
+```
+CREATE TABLE IF NOT EXISTS role_permissions (
+  id int(10) NOT NULL AUTO_INCREMENT,
+  role_id INT(10),
+  permission_id INT(10),
+  state TINYINT(1) COMMENT 'user state: 0=normal, 1=disable',
+  deleted TINYINT(1) DEFAULT 0 COMMENT 'soft deleted: 0=undelete,1=deleted',
+  update_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+);
+```
+Users Usergroups
+```
+CREATE TABLE IF NOT EXISTS users_usergroups (
+  id int(10) NOT NULL AUTO_INCREMENT,
+  user_id INT(10),
+  usergroups_id INT(10),
+  state TINYINT(1) COMMENT 'user state: 0=normal, 1=disable',
+  deleted TINYINT(1) DEFAULT 0 COMMENT 'soft deleted: 0=undelete,1=deleted',
+  update_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
 );
 ```
 
