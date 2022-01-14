@@ -55,13 +55,11 @@ func (dc *DatabaseClient) UpdateUser(ctx context.Context, user *User) error {
 	// aq := &UserQuery{db: dc.db, query: q}
 	// _, err := aq.db.Exec(aq.query, user.Title, user.Content,
 	//         user.CategoryId, user.UserId, user.Id)
-	// if err != nil {
-	//         return err
-	// }
 	return nil
 }
 
-func (dc *DatabaseClient) DeleteUser(ctx context.Context, id string) error {
+// DeleteUser2 is true delete from database instead of DeleteUser just update the row
+func (dc *DatabaseClient) DeleteUser2(ctx context.Context, id int) error {
 	q := `DELETE FROM users WHERE id=?`
 	aq := &UserQuery{db: dc.db, query: q}
 	_, err := aq.db.Exec(aq.query, id)
@@ -69,6 +67,16 @@ func (dc *DatabaseClient) DeleteUser(ctx context.Context, id string) error {
 		return err
 	}
 	return nil
+}
+
+// DeleteUser is soft delete, just update deleted field to 1
+// DeleteUser is cooperate with All(ctx), that just return
+// all rows except deleted is 1
+func (dc *DatabaseClient) DeleteUser(ctx context.Context, id int) error {
+	q := `UPDATE users SET deleted=? WHERE id=?`
+	aq := &UserQuery{db: dc.db, query: q}
+	_, err := aq.db.Exec(aq.query, 1, id)
+	return err
 }
 
 func (dc *DatabaseClient) QueryUser() *UserQuery {
@@ -79,7 +87,7 @@ func (dc *DatabaseClient) QueryUser() *UserQuery {
 		FROM users`}
 }
 
-// All2 will desplay all lines queried also deleted field value is 1
+// All2 will display all rows even if deleted field value is 1
 func (aq *UserQuery) All2(ctx context.Context) (*Users, error) {
 	if err := aq.prepareQuery(ctx); err != nil {
 		return nil, err

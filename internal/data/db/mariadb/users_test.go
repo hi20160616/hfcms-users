@@ -3,13 +3,14 @@ package mariadb
 import (
 	"context"
 	"fmt"
+	"strconv"
 	"strings"
 	"testing"
 
 	"github.com/pkg/errors"
 )
 
-var id = "1"
+var id = 5
 
 func TestPrepareQuery(t *testing.T) {
 	qc := &UserQuery{query: "SELECT * FROM users"}
@@ -160,20 +161,18 @@ func TestDeleteUser(t *testing.T) {
 		t.Fatal(err)
 	}
 	if err := c.DatabaseClient.DeleteUser(context.Background(), id); err != nil {
-		t.Error(err)
-		return
+		t.Fatalf("DeleteUser err: %v", err)
 	}
 
-	ps := [4]string{"id", "=", id}
+	ps := [4]string{"id", "=", strconv.Itoa(id), "and"}
 	got, err := c.DatabaseClient.QueryUser().Where(ps).First(context.Background())
 	if err != nil {
 		if strings.Contains(err.Error(), "Item not found in table") {
 			return
 		}
-		t.Error(err)
-		return
+		t.Fatalf("QueryUser err: %v", err)
 	}
-	if got != nil {
+	if got.Deleted != 1 {
 		t.Error(errors.New("Delete failed."))
 	}
 }
