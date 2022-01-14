@@ -34,28 +34,33 @@ type UserQuery struct {
 }
 
 func (dc *DatabaseClient) InsertUser(ctx context.Context, user *User) error {
-	// q := `INSERT INTO users(
-	//         id, title, content, category_id, user_id
-	//         ) VALUES (?, ?, ?, ?, ?)
-	//         ON DUPLICATE KEY UPDATE
-	//         title=?, content=?, category_id=?, user_id=?`
-	// aq := &UserQuery{db: dc.db, query: q}
-	// _, err := aq.db.Exec(aq.query,
-	//         user.Id, user.Title, user.Content, user.CategoryId, user.UserId,
-	//         user.Title, user.Content, user.CategoryId, user.UserId)
-	// if err != nil {
-	//         return errors.WithMessage(err, "mariadb: Insert error")
-	// }
-	return nil
+	q := `INSERT INTO users(
+		username, password, realname, nickname, avatar_url, phone, user_ip
+		) VALUES (?, (SELECT PASSWORD(?)), ?, ?, ?, ?, INET_ATON(?))
+		ON DUPLICATE KEY UPDATE
+		username=?, password=(SELECT PASSWORD(?)), realname=?, nickname=?, 
+		avatar_url=?, phone=?, user_ip=INET_ATON(?)`
+	aq := &UserQuery{db: dc.db, query: q}
+	_, err := aq.db.Exec(aq.query,
+		user.Username, user.Password, user.Realname, user.Nickname,
+		user.AvatarUrl, user.Phone, user.UserIP,
+		user.Username, user.Password, user.Realname, user.Nickname,
+		user.AvatarUrl, user.Phone, user.UserIP,
+	)
+	return errors.WithMessage(err, "mariadb: users: Insert error")
 }
 
 func (dc *DatabaseClient) UpdateUser(ctx context.Context, user *User) error {
-	// q := `UPDATE users SET title=?, content=?, category_id=?, user_id=?
-	//         WHERE id=?`
-	// aq := &UserQuery{db: dc.db, query: q}
-	// _, err := aq.db.Exec(aq.query, user.Title, user.Content,
-	//         user.CategoryId, user.UserId, user.Id)
-	return nil
+	q := `UPDATE users SET
+		password=(SELECT PASSWORD(?)), realname=?, nickname=?, 
+		avatar_url=?, phone=?, user_ip=INET_ATON(?), state=?
+		WHERE id=?`
+	uq := &UserQuery{db: dc.db, query: q}
+	_, err := uq.db.Exec(uq.query,
+		user.Password, user.Realname, user.Nickname,
+		user.AvatarUrl, user.Phone, user.UserIP, user.State,
+		user.Id)
+	return err
 }
 
 // DeleteUser2 is true delete from database instead of DeleteUser just update the row
@@ -143,6 +148,7 @@ func (aq *UserQuery) prepareQuery(ctx context.Context) error {
 	if aq.clauses != nil {
 		aq.query += " WHERE "
 		for i, c := range aq.clauses {
+			// TODO: 2nd clause cannot be tied together automaticly
 			// the last `or` or `and` in clause will cut off there.
 			// so, every clause need `or` or `and` for last element.
 			if i == len(aq.clauses)-1 {

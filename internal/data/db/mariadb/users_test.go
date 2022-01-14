@@ -41,118 +41,123 @@ func TestListUsers(t *testing.T) {
 	}
 }
 
-func TestWhereUsers(t *testing.T) {
+func TestInsertUser(t *testing.T) {
 	c, err := NewClient("hfcms-users")
 	if err != nil {
 		t.Fatal(err)
 	}
-
-	out := func(a [4]string) {
-		fmt.Println("-------------------------------------------")
-		fmt.Println("test where: ", a)
-		got, err := c.DatabaseClient.QueryUser().Where(a).All(context.Background())
+	tcs := []*User{
+		{
+			Username:  "testInsert1",
+			Password:  "testInsert1",
+			Realname:  "Mazzy1",
+			Nickname:  "donkey1",
+			AvatarUrl: "testInsert1.jpg",
+			Phone:     "13512345678",
+			UserIP:    "123.123.123.123",
+		},
+		{
+			Username:  "testInsert2",
+			Password:  "testInsert2",
+			Realname:  "Mazzy2",
+			Nickname:  "donkey2",
+			AvatarUrl: "testInsert2.jpg",
+			Phone:     "13512345678",
+			UserIP:    "123.123.123.123",
+		},
+		{
+			Username:  "testInsert3",
+			Password:  "testInsert3",
+			Realname:  "Mazzy3",
+			Nickname:  "donkey3",
+			AvatarUrl: "testInsert3.jpg",
+			Phone:     "13512345678",
+			UserIP:    "123.123.123.123",
+		},
+	}
+	for _, tc := range tcs {
+		err := c.DatabaseClient.InsertUser(context.Background(), tc)
 		if err != nil {
-			t.Errorf("%v", err)
-			return
+			if err != nil {
+				t.Fatal(err)
+			}
 		}
-		for _, e := range got.Collection {
-			fmt.Println(e)
-		}
-		fmt.Println("===========================================")
 	}
-
-	outs := func(ps [][4]string) {
-		fmt.Println("-------------------------------------------")
-		fmt.Println("test where: ", ps)
-		got, err := c.DatabaseClient.QueryUser().Where(ps...).All(context.Background())
-		if err != nil {
-			t.Error(err)
-			return
-		}
-		// fmt.Println(got.Collection)
-		for _, e := range got.Collection {
-			fmt.Println(e)
-		}
-		fmt.Println("===========================================")
-	}
-
-	ps1 := [][4]string{
-		{"title", "=", "test2 title", "and"},
-		{"content", "like", "2", "and"},
-		{"user_id", "=", "0"},
-	}
-	ps2 := [][4]string{
-		{"title", "=", "test2 title", "or"},
-		{"content", "like", "2", "or"},
-		{"user_id", "=", "0"},
-	}
-	out(ps1[2]) // test one clause
-	outs(ps1)
-	outs(ps2)
 }
 
-func TestInsertUser(t *testing.T) {
-	// c, err := NewClient("hfcms-users")
-	// if err != nil {
-	//         t.Fatal(err)
-	// }
-	// user1 := &User{
-	//         Id:         time.Now().Format("060102150405.000000") + "00001",
-	//         Title:      "test1 title",
-	//         Content:    "test1 content",
-	//         UserId:     1,
-	//         CategoryId: 1,
-	//         UpdateTime: time.Now(),
-	// }
-	// user2 := &User{
-	//         Id:         time.Now().Format("060102150405.000000") + "00002",
-	//         Title:      "test2 title",
-	//         Content:    "test2 content",
-	//         UserId:     2,
-	//         CategoryId: 2,
-	//         UpdateTime: time.Now(),
-	// }
-	// user3 := &User{
-	//         Id:         time.Now().Format("060102150405.000000") + "00003",
-	//         Title:      "test3 title",
-	//         Content:    "test3 content",
-	//         UserId:     3,
-	//         CategoryId: 3,
-	//         UpdateTime: time.Now(),
-	// }
-	// if err := c.DatabaseClient.InsertUser(context.Background(), user1); err != nil {
-	//         t.Error(err)
-	// }
-	// if err := c.DatabaseClient.InsertUser(context.Background(), user2); err != nil {
-	//         t.Error(err)
-	// }
-	// if err := c.DatabaseClient.InsertUser(context.Background(), user3); err != nil {
-	//         t.Error(err)
-	// }
-}
 func TestUpdateUser(t *testing.T) {
-	// c, err := NewClient("hfcms-users")
-	// if err != nil {
-	//         t.Fatal(err)
-	// }
-	// user := &User{
-	//         Id:         id,
-	//         Title:      "Test title update",
-	//         Content:    "Test content update",
-	//         CategoryId: 5,
-	//         UserId:     2,
-	// }
-	// if err := c.DatabaseClient.UpdateUser(context.Background(), user); err != nil {
-	//         t.Error(err)
-	//         return
-	// }
-	// ps := [4]string{"id", "=", user.Id}
-	// got, err := c.DatabaseClient.QueryUser().Where(ps).First(context.Background())
-	// if err != nil {
-	//         t.Error(err)
-	//         return
-	// }
-	// fmt.Println(got)
+	c, err := NewClient("hfcms-users")
+	if err != nil {
+		t.Fatal(err)
+	}
+	user := &User{
+		Id:        id,
+		Username:  "tttest",
+		Password:  "testNewPwd",
+		Realname:  "real test",
+		Nickname:  "nick test",
+		AvatarUrl: "avatar_url.test.jpg",
+		Phone:     "13512345678",
+		UserIP:    "111.111.111.111",
+		State:     1,
+	}
+	getUser := func() *User {
+		ps := [4]string{"id", "=", strconv.Itoa(user.Id), "or"}
+		got, err := c.DatabaseClient.QueryUser().Where(ps).First(context.Background())
+		if err != nil {
+			t.Fatal(err)
+		}
+		return got
+	}
+
+	before := getUser()
+	if err := c.DatabaseClient.UpdateUser(context.Background(), user); err != nil {
+		t.Error(err)
+		return
+	}
+	after := getUser()
+	if before.Password != after.Password {
+		if err != nil {
+			t.Fatal(fmt.Errorf("want: %s, got: %s",
+				user.Password, after.Password))
+		}
+	}
+	if before.Realname != after.Realname {
+		if err != nil {
+			t.Fatal(fmt.Errorf("want: %s, got: %s",
+				user.Realname, after.Realname))
+		}
+	}
+	if before.Nickname != after.Nickname {
+		if err != nil {
+			t.Fatal(fmt.Errorf("want: %s, got: %s",
+				user.Nickname, after.Nickname))
+		}
+	}
+	if before.AvatarUrl != after.AvatarUrl {
+		if err != nil {
+			t.Fatal(fmt.Errorf("want: %s, got: %s",
+				user.AvatarUrl, after.AvatarUrl))
+		}
+	}
+	if before.Phone != after.Phone {
+		if err != nil {
+			t.Fatal(fmt.Errorf("want: %s, got: %s",
+				user.Phone, after.Phone))
+		}
+	}
+	if before.UserIP != after.UserIP {
+		if err != nil {
+			t.Fatal(fmt.Errorf("want: %s, got: %s",
+				user.UserIP, after.UserIP))
+		}
+	}
+	if before.State != after.State {
+		if err != nil {
+			t.Fatal(fmt.Errorf("want: %d, got: %d",
+				user.State, after.State))
+		}
+	}
 }
 
 func TestDeleteUser(t *testing.T) {

@@ -46,7 +46,7 @@ Users
 ```
 CREATE TABLE IF NOT EXISTS users (
   id int(10) NOT NULL AUTO_INCREMENT,
-  username VARCHAR(255),
+  username VARCHAR(255) UNIQUE,
   password VARCHAR(255),
   realname VARCHAR(255),
   nickname VARCHAR(255),
@@ -187,7 +187,7 @@ FLUSH PRIVILEGES;
 USE hfcms_users;
 CREATE TABLE IF NOT EXISTS users (
   id int(10) NOT NULL AUTO_INCREMENT,
-  username VARCHAR(255),
+  username VARCHAR(255) UNIQUE,
   password VARCHAR(255),
   realname VARCHAR(255),
   nickname VARCHAR(255),
