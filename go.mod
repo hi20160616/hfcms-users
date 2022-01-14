@@ -1,8 +1,9 @@
-module github.com/hi20160616/hfcms-api
+module github.com/hi20160616/hfcms-users
 
 go 1.17
 
 require (
+	github.com/go-sql-driver/mysql v1.6.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.7.1
 	github.com/pkg/errors v0.9.1
 	google.golang.org/genproto v0.0.0-20211129164237-f09f9a12af12
@@ -12,7 +13,11 @@ require (
 )
 
 require (
-	github.com/golang/glog v1.0.0 // indirect
+	github.com/golang/glog v1.0.0
+	golang.org/x/sync v0.0.0-20200625203802-6e8e738ad208
+)
+
+require (
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/kr/pretty v0.1.0 // indirect
 	golang.org/x/net v0.0.0-20210405180319-a5a99cb37ef4 // indirect

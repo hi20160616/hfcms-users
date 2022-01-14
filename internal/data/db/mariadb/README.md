@@ -64,7 +64,7 @@ Departments
 ```
 CREATE TABLE IF NOT EXISTS departments (
   id int(10) NOT NULL AUTO_INCREMENT,
-  parent_id INT(10) UNIQUE,
+  parent_id INT(10) DEFAULT NULL,
   code VARCHAR(255) UNIQUE,
   name VARCHAR(255),
   description VARCHAR(255),
@@ -90,7 +90,7 @@ Roles
 ```
 CREATE TABLE IF NOT EXISTS roles (
   id int(10) NOT NULL AUTO_INCREMENT,
-  parent_id INT(10) UNIQUE,
+  parent_id INT(10) DEFAULT NULL,
   code VARCHAR(255) UNIQUE,
   name VARCHAR(255),
   description VARCHAR(255),
@@ -116,7 +116,7 @@ Permissions
 ```
 CREATE TABLE IF NOT EXISTS permissions (
   id int(10) NOT NULL AUTO_INCREMENT,
-  parent_id INT(10) UNIQUE,
+  parent_id INT(10) DEFAULT NULL,
   code VARCHAR(255) UNIQUE,
   name VARCHAR(255),
   description VARCHAR(255),
@@ -142,7 +142,7 @@ Usergroups
 ```
 CREATE TABLE IF NOT EXISTS usergroups (
   id int(10) NOT NULL AUTO_INCREMENT,
-  parent_id INT(10) UNIQUE,
+  parent_id INT(10) DEFAULT NULL,
   code VARCHAR(255) UNIQUE,
   name VARCHAR(255),
   description VARCHAR(255),

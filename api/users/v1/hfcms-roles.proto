@@ -75,7 +75,7 @@ message Role{
   string name = 1;
   int32 role_id = 2;
   int32 parent_id = 3;
-  string role_code = 4;
+  string code = 4;
   string role_name = 5;
   string description = 6;
   int32 state = 7;

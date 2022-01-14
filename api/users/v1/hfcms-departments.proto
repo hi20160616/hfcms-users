@@ -75,7 +75,7 @@ message Department{
   string name = 1;
   int32 department_id = 2;
   int32 parent_id = 3;
-  string department_code = 4;
+  string code = 4;
   string department_name = 5;
   string description = 6;
   int32 state = 7;

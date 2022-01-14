@@ -75,7 +75,7 @@ message Usergroup{
   string name = 1;
   int32 usergroup_id = 2;
   int32 parent_id = 3;
-  string usergroup_code = 4;
+  string code = 4;
   string usergroup_name = 5;
   string description = 6;
   int32 state = 7;
