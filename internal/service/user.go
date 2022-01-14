@@ -18,7 +18,7 @@ type UserService struct {
 }
 
 func NewUserService() (*UserService, error) {
-	dbc, err := mariadb.NewClient()
+	dbc, err := mariadb.NewClient("hfcms-users")
 	if err != nil {
 		return nil, err
 	}
@@ -35,24 +35,28 @@ func (as *UserService) ListUsers(ctx context.Context, in *pb.ListUsersRequest) (
 			fmt.Printf("Recovered in ListUsers: \n%v\n", r)
 		}
 	}()
-	return nil, nil
-	// bizas, err := as.ac.ListUsers(ctx, in.Parent)
-	// if err != nil {
-	//         return nil, err
-	// }
-	// resp := []*pb.User{}
-	// for _, a := range bizas.Collection {
-	//         resp = append(resp, &pb.User{
-	//                 UserId:  a.UserId,
-	//                 Title:      a.Title,
-	//                 Content:    a.Content,
-	//                 CategoryId: int32(a.CategoryId),
-	//                 UserId:     int32(a.UserId),
-	//                 Category:   getCate(a),
-	//                 UpdateTime: a.UpdateTime,
-	//         })
-	// }
-	// return &pb.ListUsersResponse{Users: resp}, nil
+	bizus, err := as.ac.ListUsers(ctx, in.Parent)
+	if err != nil {
+		return nil, err
+	}
+	resp := []*pb.User{}
+	for _, u := range bizus.Collection {
+		resp = append(resp, &pb.User{
+			UserId:     int32(u.UserId),
+			Username:   u.Username,
+			Password:   u.Password,
+			Realname:   u.Realname,
+			Nickname:   u.Nickname,
+			AvatarUrl:  u.AvatarUrl,
+			Phone:      u.Phone,
+			UserIp:     u.UserIP,
+			State:      int32(u.State),
+			Deleted:    int32(u.Deleted),
+			CreateTime: u.CreateTime,
+			UpdateTime: u.UpdateTime,
+		})
+	}
+	return &pb.ListUsersResponse{Users: resp}, nil
 }
 
 func (as *UserService) GetUser(ctx context.Context, in *pb.GetUserRequest) (*pb.User, error) {
@@ -86,12 +90,12 @@ func (as *UserService) SearchUsers(ctx context.Context, in *pb.SearchUsersReques
 		}
 	}()
 	return nil, nil
-	// bizas, err := as.ac.SearchUsers(ctx, in.Name)
+	// bizus, err := as.ac.SearchUsers(ctx, in.Name)
 	// if err != nil {
 	//         return nil, err
 	// }
 	// respAs := &pb.SearchUsersResponse{}
-	// for _, a := range bizas.Collection {
+	// for _, a := range bizus.Collection {
 	//         respAs.Users = append(respAs.Users, &pb.User{
 	//                 UserId:  a.UserId,
 	//                 Title:      a.Title,

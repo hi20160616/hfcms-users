@@ -20,8 +20,8 @@ func open(cfg *configs.Config) (*sql.DB, error) {
 	// return sql.Open("mysql", "hfcms_article_user:hfcms_article_user_pwd@tcp(127.0.0.1:3306)/hfcms_articles?loc=Asia%2FShanghai&parseTime=true")
 }
 
-func NewClient() (*Client, error) {
-	cfg := configs.NewConfig("hfcms-articles")
+func NewClient(projectName configs.ProjectName) (*Client, error) {
+	cfg := configs.NewConfig(projectName)
 	if cfg.Err != nil {
 		return &Client{nil, nil}, cfg.Err
 	}

@@ -9,6 +9,7 @@ import (
 	_ "github.com/hi20160616/hfcms-users/configs"
 	"github.com/hi20160616/hfcms-users/internal/biz"
 	"google.golang.org/protobuf/types/known/emptypb"
+	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
 var _ biz.UserRepo = new(userRepo)
@@ -31,9 +32,22 @@ func NewUserRepo(data *Data, logger *log.Logger) biz.UserRepo {
 func (ar *userRepo) ListUsers(ctx context.Context, parent string) (*biz.Users, error) {
 	ctx, cancel := context.WithTimeout(ctx, 50*time.Second)
 	defer cancel()
-	return nil, nil
+	bizas := &biz.Users{}
+	bizas.Collection = append(bizas.Collection, &biz.User{
+		UserId:     1,
+		Username:   "test",
+		Password:   "PWD",
+		Realname:   "Real",
+		Nickname:   "N1ke",
+		AvatarUrl:  "bigway.jpg",
+		Phone:      "13912345678",
+		UserIP:     "127.0.0.1",
+		State:      0,
+		Deleted:    0,
+		CreateTime: timestamppb.Now(),
+		UpdateTime: timestamppb.Now(),
+	})
 	// as := &mariadb.Users{}
-	// bizas := &biz.Users{}
 	// var err error
 	// re := regexp.MustCompile(`^(categories|tags)/(.+)/users$`)
 	// x := re.FindStringSubmatch(parent)
@@ -65,8 +79,7 @@ func (ar *userRepo) ListUsers(ctx context.Context, parent string) (*biz.Users, e
 	//                 UpdateTime: timestamppb.New(a.UpdateTime),
 	//         })
 	// }
-	// return bizas, nil
-
+	return bizas, nil
 }
 
 func (ar *userRepo) GetUser(ctx context.Context, name string) (*biz.User, error) {

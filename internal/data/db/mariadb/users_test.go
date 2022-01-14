@@ -27,7 +27,7 @@ func TestPrepareQuery(t *testing.T) {
 }
 
 func TestInsertUser(t *testing.T) {
-	c, err := NewClient()
+	c, err := NewClient("hfcms-users")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -67,7 +67,7 @@ func TestInsertUser(t *testing.T) {
 }
 
 func TestListUsers(t *testing.T) {
-	c, err := NewClient()
+	c, err := NewClient("hfcms-users")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -82,7 +82,7 @@ func TestListUsers(t *testing.T) {
 }
 
 func TestWhereUsers(t *testing.T) {
-	c, err := NewClient()
+	c, err := NewClient("hfcms-users")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -132,7 +132,7 @@ func TestWhereUsers(t *testing.T) {
 }
 
 func TestUpdateUser(t *testing.T) {
-	c, err := NewClient()
+	c, err := NewClient("hfcms-users")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -157,7 +157,7 @@ func TestUpdateUser(t *testing.T) {
 }
 
 func TestDeleteUser(t *testing.T) {
-	c, err := NewClient()
+	c, err := NewClient("hfcms-users")
 	if err != nil {
 		t.Fatal(err)
 	}

@@ -12,14 +12,14 @@ import (
 )
 
 var ar = func() biz.UserRepo {
-	dc, err := mariadb.NewClient()
+	dc, err := mariadb.NewClient("hfcms-users")
 	if err != nil {
 		log.Fatal(err)
 	}
 	return NewUserRepo(&Data{DBClient: dc}, log.Default())
 }()
 
-var id = "211229113754.21503400003"
+var id = "1"
 
 func TestCreateUser(t *testing.T) {
 	// a, err := ar.CreateUser(context.Background(), &biz.User{
