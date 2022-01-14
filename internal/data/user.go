@@ -3,14 +3,12 @@ package data
 import (
 	"context"
 	"log"
-	"strconv"
 	"time"
 
 	_ "github.com/hi20160616/hfcms-users/api/users/v1"
 	_ "github.com/hi20160616/hfcms-users/configs"
 	"github.com/hi20160616/hfcms-users/internal/biz"
 	"google.golang.org/protobuf/types/known/emptypb"
-	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
 var _ biz.UserRepo = new(userRepo)
@@ -108,88 +106,6 @@ func (ar *userRepo) GetUser(ctx context.Context, name string) (*biz.User, error)
 	//         Tags:       tags,
 	//         UpdateTime: timestamppb.New(a.UpdateTime),
 	// }, nil
-}
-
-// getCate, err not treat as return,
-// because just a category err should not break the user list.
-// there just mark it as categoryId
-func (ar *userRepo) getCate(ctx context.Context, categoryId int) *biz.Category {
-	c, err := ar.data.DBClient.DatabaseClient.QueryCategory().Where(
-		[4]string{"id", "=", strconv.Itoa(categoryId)}).First(ctx)
-	if err != nil {
-		c.Code = strconv.Itoa(c.Id)
-		c.Name = strconv.Itoa(c.Id)
-	}
-	return &biz.Category{
-		CategoryId:   categoryId,
-		CategoryCode: c.Code,
-		CategoryName: c.Name,
-	}
-}
-
-func (ar *userRepo) getAttrs(ctx context.Context, userId string) (*biz.Attributes, error) {
-	clause := [4]string{"user_id", "=", userId}
-	attrs, err := ar.data.DBClient.DatabaseClient.
-		QueryUserAttribute().Where(clause).All(ctx)
-	if err != nil {
-		return nil, err
-	}
-	attrIds := []int{}
-	for _, attr := range attrs.Collection {
-		attrIds = append(attrIds, attr.AttributeId)
-	}
-	clauses := [][4]string{}
-	for _, aid := range attrIds {
-		clauses = append(clauses,
-			[4]string{"id", "=", strconv.Itoa(aid), "or"})
-	}
-	dataAttrs, err := ar.data.DBClient.DatabaseClient.QueryAttribute().Where(clauses...).All(ctx)
-	if err != nil {
-		return nil, err
-	}
-	bizAttrs := &biz.Attributes{}
-	for _, a := range dataAttrs.Collection {
-		bizAttrs.Collection = append(bizAttrs.Collection, &biz.Attribute{
-			Id:          a.Id,
-			Path:        a.Path,
-			Description: a.Description,
-			UserId:      a.UserId,
-			UserId:      a.UserId,
-			UpdateTime:  timestamppb.New(a.UpdateTime),
-		})
-	}
-	return bizAttrs, nil
-}
-
-func (ar *userRepo) getTags(ctx context.Context, userId string) (*biz.Tags, error) {
-	clause := [4]string{"user_id", "=", userId}
-	tags, err := ar.data.DBClient.DatabaseClient.
-		QueryUserTag().Where(clause).All(ctx)
-	if err != nil {
-		return nil, err
-	}
-	tids := []int{}
-	for _, tag := range tags.Collection {
-		tids = append(tids, tag.TagId)
-	}
-	clauses := [][4]string{}
-	for _, tid := range tids {
-		clauses = append(clauses,
-			[4]string{"id", "=", strconv.Itoa(tid), "or"})
-	}
-	dataTags, err := ar.data.DBClient.DatabaseClient.QueryTag().Where(clauses...).All(ctx)
-	if err != nil {
-		return nil, err
-	}
-	bizTags := &biz.Tags{}
-	for _, tag := range dataTags.Collection {
-		bizTags.Collection = append(bizTags.Collection, &biz.Tag{
-			TagId:      tag.Id,
-			TagName:    tag.Name,
-			UpdateTime: timestamppb.New(tag.UpdateTime),
-		})
-	}
-	return bizTags, nil
 }
 
 func (ar *userRepo) SearchUsers(ctx context.Context, name string) (*biz.Users, error) {
