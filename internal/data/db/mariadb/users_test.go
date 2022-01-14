@@ -5,15 +5,14 @@ import (
 	"fmt"
 	"strings"
 	"testing"
-	"time"
 
 	"github.com/pkg/errors"
 )
 
-var id = "220104181701.65442600123"
+var id = "1"
 
 func TestPrepareQuery(t *testing.T) {
-	qc := &UserQuery{query: "SELECT * FROM articles"}
+	qc := &UserQuery{query: "SELECT * FROM users"}
 	qc.Where(
 		[4]string{"name", "like", "test", "and"},
 		[4]string{"name", "like", "test1", "and"},
@@ -24,46 +23,6 @@ func TestPrepareQuery(t *testing.T) {
 		t.Error(err)
 	}
 	fmt.Println(qc.query, qc.args)
-}
-
-func TestInsertUser(t *testing.T) {
-	c, err := NewClient("hfcms-users")
-	if err != nil {
-		t.Fatal(err)
-	}
-	article1 := &User{
-		Id:         time.Now().Format("060102150405.000000") + "00001",
-		Title:      "test1 title",
-		Content:    "test1 content",
-		UserId:     1,
-		CategoryId: 1,
-		UpdateTime: time.Now(),
-	}
-	article2 := &User{
-		Id:         time.Now().Format("060102150405.000000") + "00002",
-		Title:      "test2 title",
-		Content:    "test2 content",
-		UserId:     2,
-		CategoryId: 2,
-		UpdateTime: time.Now(),
-	}
-	article3 := &User{
-		Id:         time.Now().Format("060102150405.000000") + "00003",
-		Title:      "test3 title",
-		Content:    "test3 content",
-		UserId:     3,
-		CategoryId: 3,
-		UpdateTime: time.Now(),
-	}
-	if err := c.DatabaseClient.InsertUser(context.Background(), article1); err != nil {
-		t.Error(err)
-	}
-	if err := c.DatabaseClient.InsertUser(context.Background(), article2); err != nil {
-		t.Error(err)
-	}
-	if err := c.DatabaseClient.InsertUser(context.Background(), article3); err != nil {
-		t.Error(err)
-	}
 }
 
 func TestListUsers(t *testing.T) {
@@ -131,29 +90,68 @@ func TestWhereUsers(t *testing.T) {
 	outs(ps2)
 }
 
+func TestInsertUser(t *testing.T) {
+	// c, err := NewClient("hfcms-users")
+	// if err != nil {
+	//         t.Fatal(err)
+	// }
+	// user1 := &User{
+	//         Id:         time.Now().Format("060102150405.000000") + "00001",
+	//         Title:      "test1 title",
+	//         Content:    "test1 content",
+	//         UserId:     1,
+	//         CategoryId: 1,
+	//         UpdateTime: time.Now(),
+	// }
+	// user2 := &User{
+	//         Id:         time.Now().Format("060102150405.000000") + "00002",
+	//         Title:      "test2 title",
+	//         Content:    "test2 content",
+	//         UserId:     2,
+	//         CategoryId: 2,
+	//         UpdateTime: time.Now(),
+	// }
+	// user3 := &User{
+	//         Id:         time.Now().Format("060102150405.000000") + "00003",
+	//         Title:      "test3 title",
+	//         Content:    "test3 content",
+	//         UserId:     3,
+	//         CategoryId: 3,
+	//         UpdateTime: time.Now(),
+	// }
+	// if err := c.DatabaseClient.InsertUser(context.Background(), user1); err != nil {
+	//         t.Error(err)
+	// }
+	// if err := c.DatabaseClient.InsertUser(context.Background(), user2); err != nil {
+	//         t.Error(err)
+	// }
+	// if err := c.DatabaseClient.InsertUser(context.Background(), user3); err != nil {
+	//         t.Error(err)
+	// }
+}
 func TestUpdateUser(t *testing.T) {
-	c, err := NewClient("hfcms-users")
-	if err != nil {
-		t.Fatal(err)
-	}
-	article := &User{
-		Id:         id,
-		Title:      "Test title update",
-		Content:    "Test content update",
-		CategoryId: 5,
-		UserId:     2,
-	}
-	if err := c.DatabaseClient.UpdateUser(context.Background(), article); err != nil {
-		t.Error(err)
-		return
-	}
-	ps := [4]string{"id", "=", article.Id}
-	got, err := c.DatabaseClient.QueryUser().Where(ps).First(context.Background())
-	if err != nil {
-		t.Error(err)
-		return
-	}
-	fmt.Println(got)
+	// c, err := NewClient("hfcms-users")
+	// if err != nil {
+	//         t.Fatal(err)
+	// }
+	// user := &User{
+	//         Id:         id,
+	//         Title:      "Test title update",
+	//         Content:    "Test content update",
+	//         CategoryId: 5,
+	//         UserId:     2,
+	// }
+	// if err := c.DatabaseClient.UpdateUser(context.Background(), user); err != nil {
+	//         t.Error(err)
+	//         return
+	// }
+	// ps := [4]string{"id", "=", user.Id}
+	// got, err := c.DatabaseClient.QueryUser().Where(ps).First(context.Background())
+	// if err != nil {
+	//         t.Error(err)
+	//         return
+	// }
+	// fmt.Println(got)
 }
 
 func TestDeleteUser(t *testing.T) {

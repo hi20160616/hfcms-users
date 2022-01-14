@@ -13,9 +13,9 @@ import (
 )
 
 type User struct {
-	Id, Name, Title, Content string
-	UserId, CategoryId       int
-	UpdateTime               time.Time
+	Id, State, Deleted                                               int
+	Username, Password, Realname, Nickname, AvatarUrl, Phone, UserIP string
+	CreateTime, UpdateTime                                           time.Time
 }
 
 type Users struct {
@@ -34,30 +34,30 @@ type UserQuery struct {
 }
 
 func (dc *DatabaseClient) InsertUser(ctx context.Context, user *User) error {
-	q := `INSERT INTO users(
-		id, title, content, category_id, user_id
-		) VALUES (?, ?, ?, ?, ?)
-		ON DUPLICATE KEY UPDATE
-		title=?, content=?, category_id=?, user_id=?`
-	aq := &UserQuery{db: dc.db, query: q}
-	_, err := aq.db.Exec(aq.query,
-		user.Id, user.Title, user.Content, user.CategoryId, user.UserId,
-		user.Title, user.Content, user.CategoryId, user.UserId)
-	if err != nil {
-		return errors.WithMessage(err, "mariadb: Insert error")
-	}
+	// q := `INSERT INTO users(
+	//         id, title, content, category_id, user_id
+	//         ) VALUES (?, ?, ?, ?, ?)
+	//         ON DUPLICATE KEY UPDATE
+	//         title=?, content=?, category_id=?, user_id=?`
+	// aq := &UserQuery{db: dc.db, query: q}
+	// _, err := aq.db.Exec(aq.query,
+	//         user.Id, user.Title, user.Content, user.CategoryId, user.UserId,
+	//         user.Title, user.Content, user.CategoryId, user.UserId)
+	// if err != nil {
+	//         return errors.WithMessage(err, "mariadb: Insert error")
+	// }
 	return nil
 }
 
 func (dc *DatabaseClient) UpdateUser(ctx context.Context, user *User) error {
-	q := `UPDATE users SET title=?, content=?, category_id=?, user_id=?
-		WHERE id=?`
-	aq := &UserQuery{db: dc.db, query: q}
-	_, err := aq.db.Exec(aq.query, user.Title, user.Content,
-		user.CategoryId, user.UserId, user.Id)
-	if err != nil {
-		return err
-	}
+	// q := `UPDATE users SET title=?, content=?, category_id=?, user_id=?
+	//         WHERE id=?`
+	// aq := &UserQuery{db: dc.db, query: q}
+	// _, err := aq.db.Exec(aq.query, user.Title, user.Content,
+	//         user.CategoryId, user.UserId, user.Id)
+	// if err != nil {
+	//         return err
+	// }
 	return nil
 }
 
@@ -72,19 +72,29 @@ func (dc *DatabaseClient) DeleteUser(ctx context.Context, id string) error {
 }
 
 func (dc *DatabaseClient) QueryUser() *UserQuery {
-	return &UserQuery{db: dc.db, query: "SELECT * FROM users"}
+	return &UserQuery{db: dc.db,
+		query: `SELECT 
+		id, username, password, realname, nickname, avatar_url, phone,
+		INET_NTOA(user_ip), state, deleted, create_time, update_time 
+		FROM users`}
 }
 
-func (aq *UserQuery) All(ctx context.Context) (*Users, error) {
+// All2 will desplay all lines queried also deleted field value is 1
+func (aq *UserQuery) All2(ctx context.Context) (*Users, error) {
 	if err := aq.prepareQuery(ctx); err != nil {
 		return nil, err
 	}
-	rows, err := aq.db.Query(aq.query, aq.args...)
 	// rows, err := aq.db.Query("SELECT * FROM users WHERE title like ?", "%%test%%")
+	rows, err := aq.db.Query(aq.query, aq.args...)
 	if err != nil {
 		return nil, err
 	}
 	return mkUser(rows)
+}
+
+// All will display all lines that the deleted field value is 0
+func (aq *UserQuery) All(ctx context.Context) (*Users, error) {
+	return aq.Where([4]string{"deleted", "=", "0"}).All2(ctx)
 }
 
 func (aq *UserQuery) First(ctx context.Context) (*User, error) {
@@ -158,20 +168,29 @@ func (aq *UserQuery) prepareQuery(ctx context.Context) error {
 }
 
 func mkUser(rows *sql.Rows) (*Users, error) {
-	var id, title, content sql.NullString
-	var update_time sql.NullTime
-	var user_id, category_id int
+	var username, password, realname, nickname, avatar_url,
+		phone, user_ip sql.NullString
+	var create_time, update_time sql.NullTime
+	var id, state, deleted int
 	var users = &Users{}
 	for rows.Next() {
-		if err := rows.Scan(&id, &title, &content, &category_id, &user_id, &update_time); err != nil {
+		if err := rows.Scan(&id, &username, &password, &realname, &nickname,
+			&avatar_url, &phone, &user_ip, &state, &deleted,
+			&create_time, &update_time); err != nil {
 			return nil, errors.WithMessage(err, "mkUser rows.Scan error")
 		}
 		users.Collection = append(users.Collection, &User{
-			Id:         id.String,
-			Title:      title.String,
-			Content:    content.String,
-			CategoryId: category_id,
-			UserId:     user_id,
+			Id:         id,
+			Username:   username.String,
+			Password:   password.String,
+			Realname:   realname.String,
+			Nickname:   nickname.String,
+			AvatarUrl:  avatar_url.String,
+			Phone:      phone.String,
+			UserIP:     user_ip.String,
+			State:      state,
+			Deleted:    deleted,
+			CreateTime: create_time.Time,
 			UpdateTime: update_time.Time,
 		})
 	}

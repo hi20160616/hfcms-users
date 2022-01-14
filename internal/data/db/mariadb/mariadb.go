@@ -17,7 +17,6 @@ type DatabaseClient struct {
 
 func open(cfg *configs.Config) (*sql.DB, error) {
 	return sql.Open(cfg.Database.Driver, cfg.Database.Source)
-	// return sql.Open("mysql", "hfcms_article_user:hfcms_article_user_pwd@tcp(127.0.0.1:3306)/hfcms_articles?loc=Asia%2FShanghai&parseTime=true")
 }
 
 func NewClient(projectName configs.ProjectName) (*Client, error) {
