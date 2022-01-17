@@ -40,7 +40,7 @@ func (ur *roleRepo) ListRoles(ctx context.Context, parent string) (*biz.Roles, e
 	bizas := &biz.Roles{}
 	us := &mariadb.Roles{}
 	var err error
-	re := regexp.MustCompile(`^(departments|roles|rolegroups)/(.+)/roles$`)
+	re := regexp.MustCompile(`^(departments|usergroups|users)/(.+)/roles$`)
 	x := re.FindStringSubmatch(parent)
 	y, err := regexp.MatchString(parent, `^roles$`)
 	if err != nil {
@@ -53,10 +53,10 @@ func (ur *roleRepo) ListRoles(ctx context.Context, parent string) (*biz.Roles, e
 		switch x[1] {
 		case "departments":
 			clause = [4]string{"department_id", "=", x[2], "and"}
-		case "roles":
-			clause = [4]string{"role_id", "=", x[2], "and"}
-		case "rolegroups":
-			clause = [4]string{"rolegroup_id", "=", x[2], "and"}
+		case "usergroups":
+			clause = [4]string{"usergroup_id", "=", x[2], "and"}
+		case "users":
+			clause = [4]string{"user_id", "=", x[2], "and"}
 		}
 		us, err = ur.data.DBClient.DatabaseClient.QueryRole().
 			Where(clause).All(ctx)
@@ -66,7 +66,7 @@ func (ur *roleRepo) ListRoles(ctx context.Context, parent string) (*biz.Roles, e
 	}
 	for _, u := range us.Collection {
 		bizas.Collection = append(bizas.Collection, &biz.Role{
-			RoleId:     u.Id,
+			RoleId:     u.RoleId,
 			State:      u.State,
 			Deleted:    u.Deleted,
 			UpdateTime: timestamppb.New(u.UpdateTime),
@@ -92,7 +92,7 @@ func (ur *roleRepo) GetRole(ctx context.Context, name string) (*biz.Role, error)
 		return nil, err
 	}
 	return &biz.Role{
-		RoleId:     u.Id,
+		RoleId:     u.RoleId,
 		State:      u.State,
 		Deleted:    u.Deleted,
 		UpdateTime: timestamppb.New(u.UpdateTime),
@@ -129,17 +129,9 @@ func (ur *roleRepo) SearchRoles(ctx context.Context, name string) (*biz.Roles, e
 	bizas := &biz.Roles{Collection: []*biz.Role{}}
 	for _, e := range us.Collection {
 		bizas.Collection = append(bizas.Collection, &biz.Role{
-			RoleId:     e.Id,
-			Rolename:   e.Rolename,
-			Password:   e.Password,
-			Realname:   e.Realname,
-			Nickname:   e.Nickname,
-			AvatarUrl:  e.AvatarUrl,
-			Phone:      e.Phone,
-			RoleIP:     e.RoleIP,
+			RoleId:     e.RoleId,
 			State:      e.State,
 			Deleted:    e.Deleted,
-			CreateTime: timestamppb.New(e.CreateTime),
 			UpdateTime: timestamppb.New(e.UpdateTime),
 		})
 	}
@@ -150,15 +142,7 @@ func (ur *roleRepo) CreateRole(ctx context.Context, role *biz.Role) (*biz.Role, 
 	ctx, cancel := context.WithTimeout(ctx, 50*time.Second)
 	defer cancel()
 	if err := ur.data.DBClient.DatabaseClient.
-		InsertRole(ctx, &mariadb.Role{
-			Rolename:  role.Rolename,
-			Password:  role.Password,
-			Realname:  role.Realname,
-			Nickname:  role.Nickname,
-			AvatarUrl: role.AvatarUrl,
-			Phone:     role.Phone,
-			RoleIP:    role.RoleIP,
-		}); err != nil {
+		InsertRole(ctx, &mariadb.Role{}); err != nil {
 		return nil, err
 	}
 	return role, nil
@@ -181,7 +165,7 @@ func (ur *roleRepo) UpdateRole(ctx context.Context, role *biz.Role) (*biz.Role, 
 		return nil, err
 	}
 	return &biz.Role{
-		RoleId:     dbRole.Id,
+		RoleId:     dbRole.RoleId,
 		State:      dbRole.State,
 		Deleted:    dbRole.Deleted,
 		UpdateTime: timestamppb.New(dbRole.UpdateTime),

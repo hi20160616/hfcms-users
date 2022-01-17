@@ -42,10 +42,13 @@ func (as *RoleService) ListRoles(ctx context.Context, in *pb.ListRolesRequest) (
 	resp := []*pb.Role{}
 	for _, u := range bizus.Collection {
 		resp = append(resp, &pb.Role{
-			RoleId:     int32(u.RoleId),
-			State:      int32(u.State),
-			Deleted:    int32(u.Deleted),
-			UpdateTime: u.UpdateTime,
+			RoleId:      int32(u.RoleId),
+			RoleName:    u.RoleName,
+			RoleCode:    u.RoleCode,
+			Description: u.Description,
+			State:       int32(u.State),
+			Deleted:     int32(u.Deleted),
+			UpdateTime:  u.UpdateTime,
 		})
 	}
 	return &pb.ListRolesResponse{Roles: resp}, nil

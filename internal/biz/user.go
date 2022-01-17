@@ -12,8 +12,7 @@ type User struct {
 	UserId, State, Deleted                 int
 	Username, Password, Realname, Nickname string
 	AvatarUrl, Phone, UserIP               string
-	int
-	CreateTime, UpdateTime *timestamppb.Timestamp
+	CreateTime, UpdateTime                 *timestamppb.Timestamp
 }
 
 type Users struct {

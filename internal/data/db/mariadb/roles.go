@@ -13,9 +13,9 @@ import (
 )
 
 type Role struct {
-	Id, State, Deleted                                               int
-	Rolename, Password, Realname, Nickname, AvatarUrl, Phone, RoleIP string
-	CreateTime, UpdateTime                                           time.Time
+	RoleId, ParentId, State, Deleted int
+	RoleCode, RoleName, Description  string
+	UpdateTime                       time.Time
 }
 
 type Roles struct {
@@ -35,31 +35,27 @@ type RoleQuery struct {
 
 func (dc *DatabaseClient) InsertRole(ctx context.Context, role *Role) error {
 	q := `INSERT INTO roles(
-		rolename, password, realname, nickname, avatar_url, phone, role_ip
-		) VALUES (?, (SELECT PASSWORD(?)), ?, ?, ?, ?, INET_ATON(?))
+		parent_id, code, name, description
+		) VALUES (?, ?, ?, ?)
 		ON DUPLICATE KEY UPDATE
-		rolename=?, password=(SELECT PASSWORD(?)), realname=?, nickname=?, 
-		avatar_url=?, phone=?, role_ip=INET_ATON(?)`
+		parent_id=?, code=?, name=?, description=?
+		`
 	aq := &RoleQuery{db: dc.db, query: q}
 	_, err := aq.db.Exec(aq.query,
-		role.Rolename, role.Password, role.Realname, role.Nickname,
-		role.AvatarUrl, role.Phone, role.RoleIP,
-		role.Rolename, role.Password, role.Realname, role.Nickname,
-		role.AvatarUrl, role.Phone, role.RoleIP,
+		role.ParentId, role.RoleCode, role.RoleName, role.Description,
+		role.ParentId, role.RoleCode, role.RoleName, role.Description,
 	)
 	return errors.WithMessage(err, "mariadb: roles: Insert error")
 }
 
 func (dc *DatabaseClient) UpdateRole(ctx context.Context, role *Role) error {
 	q := `UPDATE roles SET
-		password=(SELECT PASSWORD(?)), realname=?, nickname=?, 
-		avatar_url=?, phone=?, role_ip=INET_ATON(?), state=?
+		parent_id=?, code=?, name=?, description=?, state=?
 		WHERE id=?`
 	uq := &RoleQuery{db: dc.db, query: q}
 	_, err := uq.db.Exec(uq.query,
-		role.Password, role.Realname, role.Nickname,
-		role.AvatarUrl, role.Phone, role.RoleIP, role.State,
-		role.Id)
+		role.ParentId, role.RoleCode, role.RoleName, role.Description,
+		role.State, role.RoleId)
 	return err
 }
 
@@ -93,11 +89,7 @@ func (dc *DatabaseClient) UndeleteRole(ctx context.Context, id int) error {
 }
 
 func (dc *DatabaseClient) QueryRole() *RoleQuery {
-	return &RoleQuery{db: dc.db,
-		query: `SELECT 
-		id, rolename, password, realname, nickname, avatar_url, phone,
-		INET_NTOA(role_ip), state, deleted, create_time, update_time 
-		FROM roles`}
+	return &RoleQuery{db: dc.db, query: `SELECT * FROM roles`}
 }
 
 // All2 will display all rows even if deleted field value is 1
@@ -190,29 +182,22 @@ func (aq *RoleQuery) prepareQuery(ctx context.Context) error {
 }
 
 func mkRole(rows *sql.Rows) (*Roles, error) {
-	var rolename, password, realname, nickname, avatar_url,
-		phone, role_ip sql.NullString
-	var create_time, update_time sql.NullTime
-	var id, state, deleted int
+	var code, name, description sql.NullString
+	var update_time sql.NullTime
+	var id, state, deleted, parent_id sql.NullInt32
 	var roles = &Roles{}
 	for rows.Next() {
-		if err := rows.Scan(&id, &rolename, &password, &realname, &nickname,
-			&avatar_url, &phone, &role_ip, &state, &deleted,
-			&create_time, &update_time); err != nil {
+		if err := rows.Scan(&id, &parent_id, &code, &name, &description,
+			&state, &deleted, &update_time); err != nil {
 			return nil, errors.WithMessage(err, "mkRole rows.Scan error")
 		}
 		roles.Collection = append(roles.Collection, &Role{
-			Id:         id,
-			Rolename:   rolename.String,
-			Password:   password.String,
-			Realname:   realname.String,
-			Nickname:   nickname.String,
-			AvatarUrl:  avatar_url.String,
-			Phone:      phone.String,
-			RoleIP:     role_ip.String,
-			State:      state,
-			Deleted:    deleted,
-			CreateTime: create_time.Time,
+			RoleId:     int(id.Int32),
+			ParentId:   int(parent_id.Int32),
+			RoleCode:   code.String,
+			RoleName:   name.String,
+			State:      int(state.Int32),
+			Deleted:    int(deleted.Int32),
 			UpdateTime: update_time.Time,
 		})
 	}
