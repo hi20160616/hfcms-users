@@ -228,14 +228,56 @@ func (ur *userRepo) UpdateUser(ctx context.Context, user *biz.User) (*biz.User, 
 	}, nil
 }
 
-func (ar *userRepo) DeleteUser(ctx context.Context, name string) (*emptypb.Empty, error) {
+// DeleteUser is soft delete, that can be undeleted, it just update deleted field to 1
+func (ur *userRepo) DeleteUser(ctx context.Context, name string) (*emptypb.Empty, error) {
 	ctx, cancel := context.WithTimeout(ctx, 50*time.Second)
 	defer cancel()
-	return nil, nil
-	// re := regexp.MustCompile(`^users/([\d.]+)/delete$`)
-	// x := re.FindStringSubmatch(name)
-	// if len(x) != 2 {
-	//         return &emptypb.Empty{}, errors.New("name cannot match regex express")
-	// }
-	// return &emptypb.Empty{}, ar.data.DBClient.DatabaseClient.DeleteUser(ctx, x[1])
+	re := regexp.MustCompile(`^users/([\d.]+)/delete$`)
+	x := re.FindStringSubmatch(name)
+	if len(x) != 2 {
+		return &emptypb.Empty{},
+			errors.New("userRepo: DeleteUser: name cannot match regex express")
+	}
+	id, err := strconv.Atoi(x[1])
+	if err != nil {
+		return nil,
+			errors.New("userRepo: DeleteUser: user id should be integer only")
+	}
+	return &emptypb.Empty{}, ur.data.DBClient.DatabaseClient.DeleteUser(ctx, id)
+}
+
+func (ur *userRepo) UndeleteUser(ctx context.Context, name string) (*emptypb.Empty, error) {
+	ctx, cancel := context.WithTimeout(ctx, 50*time.Second)
+	defer cancel()
+
+	re := regexp.MustCompile(`^users/([\d.]+)/undelete$`)
+	x := re.FindStringSubmatch(name)
+	if len(x) != 2 {
+		return &emptypb.Empty{},
+			errors.New("userRepo: DeleteUser: name cannot match regex express")
+	}
+	id, err := strconv.Atoi(x[1])
+	if err != nil {
+		return nil,
+			errors.New("userRepo: DeleteUser: user id should be integer only")
+	}
+	return &emptypb.Empty{}, ur.data.DBClient.DatabaseClient.UndeleteUser(ctx, id)
+}
+
+// DeleteUser2 is true delete row from database permanently, be careful
+func (ur *userRepo) DeleteUser2(ctx context.Context, name string) (*emptypb.Empty, error) {
+	ctx, cancel := context.WithTimeout(ctx, 50*time.Second)
+	defer cancel()
+	re := regexp.MustCompile(`^users/([\d.]+)/delete$`)
+	x := re.FindStringSubmatch(name)
+	if len(x) != 2 {
+		return &emptypb.Empty{},
+			errors.New("userRepo: DeleteUser: name cannot match regex express")
+	}
+	id, err := strconv.Atoi(x[1])
+	if err != nil {
+		return nil,
+			errors.New("userRepo: DeleteUser: user id should be integer only")
+	}
+	return &emptypb.Empty{}, ur.data.DBClient.DatabaseClient.DeleteUser2(ctx, id)
 }

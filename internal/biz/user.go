@@ -28,6 +28,8 @@ type UserRepo interface {
 	CreateUser(ctx context.Context, article *User) (*User, error)
 	UpdateUser(ctx context.Context, article *User) (*User, error)
 	DeleteUser(ctx context.Context, name string) (*emptypb.Empty, error)
+	UndeleteUser(ctx context.Context, name string) (*emptypb.Empty, error)
+	DeleteUser2(ctx context.Context, name string) (*emptypb.Empty, error)
 }
 
 type UserUsecase struct {
@@ -60,4 +62,10 @@ func (au *UserUsecase) UpdateUser(ctx context.Context, article *User) (*User, er
 
 func (au *UserUsecase) DeleteUser(ctx context.Context, name string) (*emptypb.Empty, error) {
 	return au.repo.DeleteUser(ctx, name)
+}
+func (au *UserUsecase) UndeleteUser(ctx context.Context, name string) (*emptypb.Empty, error) {
+	return au.repo.UndeleteUser(ctx, name)
+}
+func (au *UserUsecase) DeleteUser2(ctx context.Context, name string) (*emptypb.Empty, error) {
+	return au.repo.DeleteUser2(ctx, name)
 }

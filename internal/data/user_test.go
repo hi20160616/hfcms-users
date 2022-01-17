@@ -19,7 +19,7 @@ var repo = func() biz.UserRepo {
 	return NewUserRepo(&Data{DBClient: dc}, log.Default())
 }()
 
-var id = "1"
+var id = "9"
 
 func TestCreateUser(t *testing.T) {
 	_, err := repo.CreateUser(context.Background(), &biz.User{
@@ -114,4 +114,24 @@ func TestDeleteUser(t *testing.T) {
 	if a != nil {
 		t.Error(fmt.Errorf("DeleteUser failed."))
 	}
+}
+
+func TestUndeleteUser(t *testing.T) {
+	name := "users/" + id + "/undelete"
+	if _, err := repo.UndeleteUser(context.Background(), name); err != nil {
+		t.Error(err)
+		return
+	}
+	a, err := repo.GetUser(context.Background(), "users/"+id)
+	if err != nil {
+		if strings.Contains(err.Error(), "Item not found in table") {
+			return
+		}
+		t.Error(err)
+		return
+	}
+	if a.Deleted == 1 {
+		t.Error(fmt.Errorf("UndeleteUser failed."))
+	}
+
 }
