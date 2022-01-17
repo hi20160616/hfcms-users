@@ -11,7 +11,7 @@ import (
 	"github.com/hi20160616/hfcms-users/internal/data/db/mariadb"
 )
 
-var ar = func() biz.UserRepo {
+var repo = func() biz.UserRepo {
 	dc, err := mariadb.NewClient("hfcms-users")
 	if err != nil {
 		log.Fatal(err)
@@ -22,7 +22,7 @@ var ar = func() biz.UserRepo {
 var id = "1"
 
 func TestCreateUser(t *testing.T) {
-	// a, err := ar.CreateUser(context.Background(), &biz.User{
+	// a, err := repo.CreateUser(context.Background(), &biz.User{
 	//         Title:      "Test Create user title",
 	//         Content:    "Test Create user content",
 	//         CategoryId: 1,
@@ -35,7 +35,7 @@ func TestCreateUser(t *testing.T) {
 }
 
 func TestUpdateUser(t *testing.T) {
-	// a, err := ar.UpdateUser(context.Background(), &biz.User{
+	// a, err := repo.UpdateUser(context.Background(), &biz.User{
 	//         UserId:     id,
 	//         Title:      "Test Update user title",
 	//         Content:    "Test Update user content",
@@ -49,7 +49,7 @@ func TestUpdateUser(t *testing.T) {
 }
 
 func TestGetUser(t *testing.T) {
-	u, err := ar.GetUser(context.Background(), "users/"+id)
+	u, err := repo.GetUser(context.Background(), "users/"+id)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -59,12 +59,12 @@ func TestGetUser(t *testing.T) {
 func TestSearchUsers(t *testing.T) {
 	out := func(name string) {
 		fmt.Println("name: ", name)
-		as, err := ar.SearchUsers(context.Background(), name)
+		es, err := repo.SearchUsers(context.Background(), name)
 		if err != nil {
 			t.Error(err)
 			return
 		}
-		for _, a := range as.Collection {
+		for _, a := range es.Collection {
 			fmt.Println(a)
 		}
 	}
@@ -79,31 +79,31 @@ func TestSearchUsers(t *testing.T) {
 }
 
 func TestListUsers(t *testing.T) {
-	as, err := ar.ListUsers(context.Background(), "")
+	es, err := repo.ListUsers(context.Background(), "")
 	if err != nil {
 		t.Error(err)
 		return
 	}
-	for _, a := range as.Collection {
+	for _, a := range es.Collection {
 		fmt.Println(a)
 	}
-	as, err = ar.ListUsers(context.Background(), "users/")
+	es, err = repo.ListUsers(context.Background(), "users/")
 	if err != nil {
 		t.Error(err)
 		return
 	}
-	for _, a := range as.Collection {
+	for _, a := range es.Collection {
 		fmt.Println(a)
 	}
 }
 
 func TestDeleteUser(t *testing.T) {
 	name := "users/" + id + "/delete"
-	if _, err := ar.DeleteUser(context.Background(), name); err != nil {
+	if _, err := repo.DeleteUser(context.Background(), name); err != nil {
 		t.Error(err)
 		return
 	}
-	a, err := ar.GetUser(context.Background(), "users/"+id)
+	a, err := repo.GetUser(context.Background(), "users/"+id)
 	if err != nil {
 		if strings.Contains(err.Error(), "Item not found in table") {
 			return

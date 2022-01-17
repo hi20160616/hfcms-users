@@ -181,3 +181,26 @@ func TestDeleteUser(t *testing.T) {
 		t.Error(errors.New("Delete failed."))
 	}
 }
+
+func TestUnDeleteUser(t *testing.T) {
+	c, err := NewClient("hfcms-users")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := c.DatabaseClient.UndeleteUser(context.Background(), id); err != nil {
+		t.Fatalf("UndeleteUser err: %v", err)
+	}
+
+	ps := [4]string{"id", "=", strconv.Itoa(id), "and"}
+	got, err := c.DatabaseClient.QueryUser().Where(ps).First(context.Background())
+	if err != nil {
+		if strings.Contains(err.Error(), "Item not found in table") {
+			return
+		}
+		t.Fatalf("QueryUser err: %v", err)
+	}
+	if got.Deleted != 0 {
+		t.Error(errors.New("UnDelete failed."))
+	}
+
+}

@@ -85,6 +85,13 @@ func (dc *DatabaseClient) DeleteUser(ctx context.Context, id int) error {
 	return err
 }
 
+func (dc *DatabaseClient) UndeleteUser(ctx context.Context, id int) error {
+	q := `UPDATE users SET deleted=? WHERE id=?`
+	aq := &UserQuery{db: dc.db, query: q}
+	_, err := aq.db.Exec(aq.query, 0, id)
+	return err
+}
+
 func (dc *DatabaseClient) QueryUser() *UserQuery {
 	return &UserQuery{db: dc.db,
 		query: `SELECT 
