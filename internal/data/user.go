@@ -3,11 +3,13 @@ package data
 import (
 	"context"
 	"log"
+	"regexp"
 	"time"
 
 	_ "github.com/hi20160616/hfcms-users/api/users/v1"
 	_ "github.com/hi20160616/hfcms-users/configs"
 	"github.com/hi20160616/hfcms-users/internal/biz"
+	"github.com/hi20160616/hfcms-users/internal/data/db/mariadb"
 	"google.golang.org/protobuf/types/known/emptypb"
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
@@ -29,56 +31,67 @@ func NewUserRepo(data *Data, logger *log.Logger) biz.UserRepo {
 // parent=categories/*/users
 // TODO parent=tags/*/users
 // parent=users/*/users
-func (ar *userRepo) ListUsers(ctx context.Context, parent string) (*biz.Users, error) {
+func (ur *userRepo) ListUsers(ctx context.Context, parent string) (*biz.Users, error) {
 	ctx, cancel := context.WithTimeout(ctx, 50*time.Second)
 	defer cancel()
+	// bizas := &biz.Users{}
+	// bizas.Collection = append(bizas.Collection, &biz.User{
+	//         UserId:     1,
+	//         Username:   "test",
+	//         Password:   "PWD",
+	//         Realname:   "Real",
+	//         Nickname:   "N1ke",
+	//         AvatarUrl:  "bigway.jpg",
+	//         Phone:      "13912345678",
+	//         UserIP:     "127.0.0.1",
+	//         State:      0,
+	//         Deleted:    0,
+	//         CreateTime: timestamppb.Now(),
+	//         UpdateTime: timestamppb.Now(),
+	// })
 	bizas := &biz.Users{}
-	bizas.Collection = append(bizas.Collection, &biz.User{
-		UserId:     1,
-		Username:   "test",
-		Password:   "PWD",
-		Realname:   "Real",
-		Nickname:   "N1ke",
-		AvatarUrl:  "bigway.jpg",
-		Phone:      "13912345678",
-		UserIP:     "127.0.0.1",
-		State:      0,
-		Deleted:    0,
-		CreateTime: timestamppb.Now(),
-		UpdateTime: timestamppb.Now(),
-	})
-	// as := &mariadb.Users{}
-	// var err error
-	// re := regexp.MustCompile(`^(categories|tags)/(.+)/users$`)
-	// x := re.FindStringSubmatch(parent)
-	// if len(x) != 3 {
-	//         as, err = ar.data.DBClient.DatabaseClient.QueryUser().All(ctx)
-	// } else {
-	//         clause := [4]string{}
-	//         if x[1] == "categories" {
-	//                 clause = [4]string{"category_id", "=", x[2], "and"}
-	//         }
-	//         if x[1] == "users" {
-	//                 clause = [4]string{"users_id", "=", x[2], "and"}
-	//         }
-	//         as, err = ar.data.DBClient.DatabaseClient.QueryUser().
-	//                 Where(clause).All(ctx)
-	// }
-	// if err != nil {
-	//         return nil, err
-	// }
-	// for _, a := range as.Collection {
-	//         c := ar.getCate(ctx, a.CategoryId)
-	//         bizas.Collection = append(bizas.Collection, &biz.User{
-	//                 UserId:  a.Id,
-	//                 Title:      a.Title,
-	//                 Content:    a.Content,
-	//                 CategoryId: a.CategoryId,
-	//                 Category:   c,
-	//                 UserId:     a.UserId,
-	//                 UpdateTime: timestamppb.New(a.UpdateTime),
-	//         })
-	// }
+	us := &mariadb.Users{}
+	var err error
+	re := regexp.MustCompile(`^(departments|roles|usergroups)/(.+)/users$`)
+	x := re.FindStringSubmatch(parent)
+	y, err := regexp.MatchString(parent, `^users$`)
+	if err != nil {
+		return nil, err
+	}
+	if len(x) != 3 && y {
+		us, err = ur.data.DBClient.DatabaseClient.QueryUser().All(ctx)
+	} else {
+		clause := [4]string{}
+		switch x[1] {
+		case "departments":
+			clause = [4]string{"department_id", "=", x[2], "and"}
+		case "roles":
+			clause = [4]string{"role_id", "=", x[2], "and"}
+		case "usergroups":
+			clause = [4]string{"usergroup_id", "=", x[2], "and"}
+		}
+		us, err = ur.data.DBClient.DatabaseClient.QueryUser().
+			Where(clause).All(ctx)
+	}
+	if err != nil {
+		return nil, err
+	}
+	for _, u := range us.Collection {
+		bizas.Collection = append(bizas.Collection, &biz.User{
+			UserId:     u.Id,
+			Username:   u.Username,
+			Password:   u.Password,
+			Realname:   u.Realname,
+			Nickname:   u.Nickname,
+			AvatarUrl:  u.AvatarUrl,
+			Phone:      u.Phone,
+			UserIP:     u.UserIP,
+			State:      u.State,
+			Deleted:    u.Deleted,
+			CreateTime: timestamppb.New(u.CreateTime),
+			UpdateTime: timestamppb.New(u.UpdateTime),
+		})
+	}
 	return bizas, nil
 }
 

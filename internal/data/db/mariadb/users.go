@@ -74,7 +74,8 @@ func (dc *DatabaseClient) DeleteUser2(ctx context.Context, id int) error {
 	return nil
 }
 
-// DeleteUser is soft delete, just update deleted field to 1
+// DeleteUser is soft delete, not delete from database,
+// but update deleted field to 1
 // DeleteUser is cooperate with All(ctx), that just return
 // all rows except deleted is 1
 func (dc *DatabaseClient) DeleteUser(ctx context.Context, id int) error {

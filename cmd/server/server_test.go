@@ -28,15 +28,23 @@ func TestGRPCServer(t *testing.T) {
 	defer conn.Close()
 
 	// users
+	// c := pb.NewUsersAPIClient(conn)
+	// as, err := c.ListUsers(ctx, &pb.ListUsersRequest{Parent: "users"})
+	// if err != nil {
+	//         t.Fatal(err)
+	// }
+	// for _, a := range as.Users {
+	//         fmt.Printf("%-5d %-10s %-10s \n", a.UserId, a.Nickname, a.Realname)
+	// }
+
 	c := pb.NewUsersAPIClient(conn)
 	as, err := c.ListUsers(ctx, &pb.ListUsersRequest{Parent: ""})
 	if err != nil {
 		t.Fatal(err)
 	}
 	for _, a := range as.Users {
-		fmt.Printf("%-5d %-30s %-30s \n", a.UserId, a.Nickname, a.Realname)
+		fmt.Printf("%-3d %-20s %-20s \n", a.UserId, a.Nickname, a.Realname)
 	}
-
 	// id := "1"
 	// a, err := c.GetUser(context.Background(), &pb.GetUserRequest{Name: "users/" + id})
 	// if err != nil {
