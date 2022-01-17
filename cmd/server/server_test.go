@@ -38,17 +38,18 @@ func TestGRPCServer(t *testing.T) {
 	// }
 
 	c := pb.NewUsersAPIClient(conn)
-	as, err := c.ListUsers(ctx, &pb.ListUsersRequest{Parent: ""})
-	if err != nil {
-		t.Fatal(err)
-	}
-	for _, a := range as.Users {
-		fmt.Printf("%-3d %-20s %-20s \n", a.UserId, a.Nickname, a.Realname)
-	}
-	// id := "1"
-	// a, err := c.GetUser(context.Background(), &pb.GetUserRequest{Name: "users/" + id})
+	// as, err := c.ListUsers(ctx, &pb.ListUsersRequest{Parent: ""})
 	// if err != nil {
 	//         t.Fatal(err)
 	// }
-	// fmt.Println(a)
+	// for _, a := range as.Users {
+	//         // fmt.Printf("%-3d %-20s %-20s \n", a.UserId, a.Nickname, a.Realname)
+	//         fmt.Println(a)
+	// }
+	id := "1"
+	u, err := c.GetUser(ctx, &pb.GetUserRequest{Name: "users/" + id})
+	if err != nil {
+		t.Fatal(err)
+	}
+	fmt.Println(u)
 }

@@ -14,7 +14,7 @@ import (
 
 type UserService struct {
 	pb.UnimplementedUsersAPIServer
-	ac *biz.UserUsecase
+	uc *biz.UserUsecase
 }
 
 func NewUserService() (*UserService, error) {
@@ -26,7 +26,7 @@ func NewUserService() (*UserService, error) {
 	db := &data.Data{DBClient: dbc}
 	repo := data.NewUserRepo(db, log.Default())
 	userUsecase := biz.NewUserUsecase(repo, *log.Default())
-	return &UserService{ac: userUsecase}, nil
+	return &UserService{uc: userUsecase}, nil
 }
 
 func (as *UserService) ListUsers(ctx context.Context, in *pb.ListUsersRequest) (*pb.ListUsersResponse, error) {
@@ -35,7 +35,7 @@ func (as *UserService) ListUsers(ctx context.Context, in *pb.ListUsersRequest) (
 			fmt.Printf("Recovered in ListUsers: \n%v\n", r)
 		}
 	}()
-	bizus, err := as.ac.ListUsers(ctx, in.Parent)
+	bizus, err := as.uc.ListUsers(ctx, in.Parent)
 	if err != nil {
 		return nil, err
 	}
@@ -59,28 +59,30 @@ func (as *UserService) ListUsers(ctx context.Context, in *pb.ListUsersRequest) (
 	return &pb.ListUsersResponse{Users: resp}, nil
 }
 
-func (as *UserService) GetUser(ctx context.Context, in *pb.GetUserRequest) (*pb.User, error) {
+func (us *UserService) GetUser(ctx context.Context, in *pb.GetUserRequest) (*pb.User, error) {
 	defer func() {
 		if r := recover(); r != nil {
 			fmt.Printf("Recovered in GetUser: %s\n%v\n", in.Name, r)
 		}
 	}()
-	return nil, nil
-	// biza, err := as.ac.GetUser(ctx, in.Name)
-	// if err != nil {
-	//         return nil, err
-	// }
-	// return &pb.User{
-	//         UserId:  biza.UserId,
-	//         Title:      biza.Title,
-	//         Content:    biza.Content,
-	//         CategoryId: int32(biza.CategoryId),
-	//         UserId:     int32(biza.UserId),
-	//         Category:   getCate(biza),
-	//         Tags:       getTags(biza),
-	//         Attributes: getAttrs(biza),
-	//         UpdateTime: biza.UpdateTime,
-	// }, nil
+	bizu, err := us.uc.GetUser(ctx, in.Name)
+	if err != nil {
+		return nil, err
+	}
+	return &pb.User{
+		UserId:     int32(bizu.UserId),
+		Username:   bizu.Username,
+		Password:   bizu.Password,
+		Realname:   bizu.Realname,
+		Nickname:   bizu.Nickname,
+		AvatarUrl:  bizu.AvatarUrl,
+		Phone:      bizu.Phone,
+		UserIp:     bizu.UserIP,
+		State:      int32(bizu.State),
+		Deleted:    int32(bizu.Deleted),
+		CreateTime: bizu.CreateTime,
+		UpdateTime: bizu.UpdateTime,
+	}, nil
 }
 
 func (as *UserService) SearchUsers(ctx context.Context, in *pb.SearchUsersRequest) (*pb.SearchUsersResponse, error) {

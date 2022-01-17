@@ -2,6 +2,7 @@ package data
 
 import (
 	"context"
+	"errors"
 	"log"
 	"regexp"
 	"time"
@@ -34,21 +35,6 @@ func NewUserRepo(data *Data, logger *log.Logger) biz.UserRepo {
 func (ur *userRepo) ListUsers(ctx context.Context, parent string) (*biz.Users, error) {
 	ctx, cancel := context.WithTimeout(ctx, 50*time.Second)
 	defer cancel()
-	// bizas := &biz.Users{}
-	// bizas.Collection = append(bizas.Collection, &biz.User{
-	//         UserId:     1,
-	//         Username:   "test",
-	//         Password:   "PWD",
-	//         Realname:   "Real",
-	//         Nickname:   "N1ke",
-	//         AvatarUrl:  "bigway.jpg",
-	//         Phone:      "13912345678",
-	//         UserIP:     "127.0.0.1",
-	//         State:      0,
-	//         Deleted:    0,
-	//         CreateTime: timestamppb.Now(),
-	//         UpdateTime: timestamppb.Now(),
-	// })
 	bizas := &biz.Users{}
 	us := &mariadb.Users{}
 	var err error
@@ -95,43 +81,36 @@ func (ur *userRepo) ListUsers(ctx context.Context, parent string) (*biz.Users, e
 	return bizas, nil
 }
 
-func (ar *userRepo) GetUser(ctx context.Context, name string) (*biz.User, error) {
+func (ur *userRepo) GetUser(ctx context.Context, name string) (*biz.User, error) {
 	ctx, cancel := context.WithTimeout(ctx, 50*time.Second)
 	defer cancel()
-	return nil, nil
-	// name=users/211228101711.111111000001
-	// re := regexp.MustCompile(`^users/([\d.]+)$`)
-	// x := re.FindStringSubmatch(name)
-	// if len(x) != 2 {
-	//         return nil, errors.New("name cannot match regex express")
-	// }
-	// id := x[1]
-	// clause := [4]string{"id", "=", id}
-	// a, err := ar.data.DBClient.DatabaseClient.QueryUser().
-	//         Where(clause).First(ctx)
-	// if err != nil {
-	//         return nil, err
-	// }
-	// c := ar.getCate(ctx, a.CategoryId)
-	// attrs, err := ar.getAttrs(ctx, id)
-	// if err != nil {
-	//         return nil, err
-	// }
-	// tags, err := ar.getTags(ctx, id)
-	// if err != nil {
-	//         return nil, err
-	// }
-	// return &biz.User{
-	//         UserId:     a.Id,
-	//         Title:      a.Title,
-	//         Content:    a.Content,
-	//         CategoryId: a.CategoryId,
-	//         UserId:     a.UserId,
-	//         Category:   c,
-	//         Attributes: attrs,
-	//         Tags:       tags,
-	//         UpdateTime: timestamppb.New(a.UpdateTime),
-	// }, nil
+	// name=users/1
+	re := regexp.MustCompile(`^users/([\d.]+)$`)
+	x := re.FindStringSubmatch(name)
+	if len(x) != 2 {
+		return nil, errors.New("name cannot match regex express")
+	}
+	id := x[1]
+	clause := [4]string{"id", "=", id, "and"}
+	u, err := ur.data.DBClient.DatabaseClient.QueryUser().
+		Where(clause).First(ctx)
+	if err != nil {
+		return nil, err
+	}
+	return &biz.User{
+		UserId:     u.Id,
+		Username:   u.Username,
+		Password:   u.Password,
+		Realname:   u.Realname,
+		Nickname:   u.Nickname,
+		AvatarUrl:  u.AvatarUrl,
+		Phone:      u.Phone,
+		UserIP:     u.UserIP,
+		State:      u.State,
+		Deleted:    u.Deleted,
+		CreateTime: timestamppb.New(u.CreateTime),
+		UpdateTime: timestamppb.New(u.UpdateTime),
+	}, nil
 }
 
 func (ar *userRepo) SearchUsers(ctx context.Context, name string) (*biz.Users, error) {

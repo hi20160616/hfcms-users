@@ -49,14 +49,11 @@ func TestUpdateUser(t *testing.T) {
 }
 
 func TestGetUser(t *testing.T) {
-	// a, err := ar.GetUser(context.Background(), "users/"+id)
-	// if err != nil {
-	//         t.Error(err)
-	//         return
-	// }
-	// fmt.Println(a.Category)
-	// fmt.Println(a.Tags)
-	// fmt.Println(a.Attributes)
+	u, err := ar.GetUser(context.Background(), "users/"+id)
+	if err != nil {
+		t.Fatal(err)
+	}
+	fmt.Println(u)
 }
 
 func TestSearchUsers(t *testing.T) {
