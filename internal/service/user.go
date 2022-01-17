@@ -85,29 +85,34 @@ func (us *UserService) GetUser(ctx context.Context, in *pb.GetUserRequest) (*pb.
 	}, nil
 }
 
-func (as *UserService) SearchUsers(ctx context.Context, in *pb.SearchUsersRequest) (*pb.SearchUsersResponse, error) {
+func (us *UserService) SearchUsers(ctx context.Context, in *pb.SearchUsersRequest) (*pb.SearchUsersResponse, error) {
 	defer func() {
 		if r := recover(); r != nil {
 			fmt.Printf("Recovered in SearchUsers: \n%v\n", r)
 		}
 	}()
-	return nil, nil
-	// bizus, err := as.ac.SearchUsers(ctx, in.Name)
-	// if err != nil {
-	//         return nil, err
-	// }
-	// respAs := &pb.SearchUsersResponse{}
-	// for _, a := range bizus.Collection {
-	//         respAs.Users = append(respAs.Users, &pb.User{
-	//                 UserId:  a.UserId,
-	//                 Title:      a.Title,
-	//                 Content:    a.Content,
-	//                 CategoryId: int32(a.CategoryId),
-	//                 UserId:     int32(a.UserId),
-	//                 Category:   getCate(a),
-	//                 UpdateTime: a.UpdateTime})
-	// }
-	// return respAs, nil
+	bizus, err := us.uc.SearchUsers(ctx, in.Name)
+	if err != nil {
+		return nil, err
+	}
+	resp := &pb.SearchUsersResponse{}
+	for _, e := range bizus.Collection {
+		resp.Users = append(resp.Users, &pb.User{
+			UserId:     int32(e.UserId),
+			Username:   e.Username,
+			Password:   e.Password,
+			Realname:   e.Realname,
+			Nickname:   e.Nickname,
+			AvatarUrl:  e.AvatarUrl,
+			Phone:      e.Phone,
+			UserIp:     e.UserIP,
+			State:      int32(e.State),
+			Deleted:    int32(e.Deleted),
+			CreateTime: e.CreateTime,
+			UpdateTime: e.UpdateTime,
+		})
+	}
+	return resp, nil
 }
 
 func (as *UserService) UpdateUser(ctx context.Context, in *pb.UpdateUserRequest) (*pb.User, error) {

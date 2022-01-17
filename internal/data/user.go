@@ -5,6 +5,7 @@ import (
 	"errors"
 	"log"
 	"regexp"
+	"strings"
 	"time"
 
 	_ "github.com/hi20160616/hfcms-users/api/users/v1"
@@ -113,46 +114,51 @@ func (ur *userRepo) GetUser(ctx context.Context, name string) (*biz.User, error)
 	}, nil
 }
 
-func (ar *userRepo) SearchUsers(ctx context.Context, name string) (*biz.Users, error) {
+func (ur *userRepo) SearchUsers(ctx context.Context, name string) (*biz.Users, error) {
 	ctx, cancel := context.WithTimeout(ctx, 50*time.Second)
 	defer cancel()
-	return nil, nil
-	// re := regexp.MustCompile(`^users/(.+)/search$`)
-	// x := re.FindStringSubmatch(name)
-	// if len(x) != 2 {
-	//         return nil, errors.New("name cannot match regex express")
-	// }
-	// kws := strings.Split(
-	//         strings.TrimSpace(strings.ReplaceAll(x[1], "　", " ")), ",")
-	// cs := [][4]string{}
-	// for _, kw := range kws {
-	//         cs = append(cs,
-	//                 // cs will be filtered by Where(clauses...)
-	//                 // the last `or` `and` in clause will cut off.
-	//                 // so, every clause need `or` or `and` for last element.
-	//                 [4]string{"title", "like", kw, "or"},
-	//                 [4]string{"content", "like", kw, "or"},
-	//         )
-	// }
-	// as, err := ar.data.DBClient.DatabaseClient.QueryUser().
-	//         Where(cs...).All(ctx)
-	// if err != nil {
-	//         return nil, err
-	// }
-	// bizas := &biz.Users{Collection: []*biz.User{}}
-	// for _, a := range as.Collection {
-	//         c := ar.getCate(ctx, a.CategoryId)
-	//         bizas.Collection = append(bizas.Collection, &biz.User{
-	//                 UserId:     a.Id,
-	//                 Title:      a.Title,
-	//                 Content:    a.Content,
-	//                 CategoryId: a.CategoryId,
-	//                 Category:   c,
-	//                 UserId:     a.UserId,
-	//                 UpdateTime: timestamppb.New(a.UpdateTime),
-	//         })
-	// }
-	// return bizas, nil
+	re := regexp.MustCompile(`^users/(.+)/search$`)
+	x := re.FindStringSubmatch(name)
+	if len(x) != 2 {
+		return nil, errors.New("name cannot match regex express")
+	}
+	kws := strings.Split(
+		strings.TrimSpace(strings.ReplaceAll(x[1], "　", " ")), ",")
+	cs := [][4]string{}
+	for _, kw := range kws {
+		cs = append(cs,
+			// cs will be filtered by Where(clauses...)
+			// the last `or` `and` in clause will cut off.
+			// so, every clause need `or` or `and` for last element.
+			[4]string{"username", "like", kw, "or"},
+			[4]string{"realname", "like", kw, "or"},
+			[4]string{"nickname", "like", kw, "or"},
+			[4]string{"user_ip", "like", kw, "and"},
+		)
+	}
+	us, err := ur.data.DBClient.DatabaseClient.QueryUser().
+		Where(cs...).All(ctx)
+	if err != nil {
+		return nil, err
+	}
+	bizas := &biz.Users{Collection: []*biz.User{}}
+	for _, e := range us.Collection {
+		bizas.Collection = append(bizas.Collection, &biz.User{
+			UserId:     e.Id,
+			Username:   e.Username,
+			Password:   e.Password,
+			Realname:   e.Realname,
+			Nickname:   e.Nickname,
+			AvatarUrl:  e.AvatarUrl,
+			Phone:      e.Phone,
+			UserIP:     e.UserIP,
+			State:      e.State,
+			Deleted:    e.Deleted,
+			CreateTime: timestamppb.New(e.CreateTime),
+			UpdateTime: timestamppb.New(e.UpdateTime),
+		})
+	}
+	return bizas, nil
 }
 
 func (ar *userRepo) CreateUser(ctx context.Context, user *biz.User) (*biz.User, error) {

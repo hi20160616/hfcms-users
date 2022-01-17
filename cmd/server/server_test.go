@@ -27,8 +27,9 @@ func TestGRPCServer(t *testing.T) {
 	}
 	defer conn.Close()
 
+	c := pb.NewUsersAPIClient(conn)
+
 	// users
-	// c := pb.NewUsersAPIClient(conn)
 	// as, err := c.ListUsers(ctx, &pb.ListUsersRequest{Parent: "users"})
 	// if err != nil {
 	//         t.Fatal(err)
@@ -37,7 +38,6 @@ func TestGRPCServer(t *testing.T) {
 	//         fmt.Printf("%-5d %-10s %-10s \n", a.UserId, a.Nickname, a.Realname)
 	// }
 
-	c := pb.NewUsersAPIClient(conn)
 	// as, err := c.ListUsers(ctx, &pb.ListUsersRequest{Parent: ""})
 	// if err != nil {
 	//         t.Fatal(err)
@@ -46,10 +46,19 @@ func TestGRPCServer(t *testing.T) {
 	//         // fmt.Printf("%-3d %-20s %-20s \n", a.UserId, a.Nickname, a.Realname)
 	//         fmt.Println(a)
 	// }
-	id := "1"
-	u, err := c.GetUser(ctx, &pb.GetUserRequest{Name: "users/" + id})
+
+	// id := "1"
+	// u, err := c.GetUser(ctx, &pb.GetUserRequest{Name: "users/" + id})
+	// if err != nil {
+	//         t.Fatal(err)
+	// }
+	// fmt.Println(u)
+
+	us, err := c.SearchUsers(ctx, &pb.SearchUsersRequest{Name: "users/zhangsan/search"})
 	if err != nil {
 		t.Fatal(err)
 	}
-	fmt.Println(u)
+	for _, e := range us.Users {
+		fmt.Printf("%s: %s: %s: %s\n", e.Username, e.Realname, e.Nickname, e.UserIp)
+	}
 }

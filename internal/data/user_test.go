@@ -71,7 +71,7 @@ func TestSearchUsers(t *testing.T) {
 
 	names := []string{
 		"users/test1/search",
-		"users/test1,test2/search",
+		"users/test,lisi/search",
 	}
 	for _, n := range names {
 		out(n)
