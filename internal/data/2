@@ -183,49 +183,28 @@ func (ur *userRepo) CreateUser(ctx context.Context, user *biz.User) (*biz.User, 
 func (ur *userRepo) UpdateUser(ctx context.Context, user *biz.User) (*biz.User, error) {
 	ctx, cancel := context.WithTimeout(ctx, 50*time.Second)
 	defer cancel()
-	dbUser, err := ur.data.DBClient.DatabaseClient.QueryUser().
-		Where([4]string{"id", "=", strconv.Itoa(user.UserId), "and"}).
+	got, err := ur.data.DBClient.DatabaseClient.QueryUser().
+		Where([4]string{"id", "=", strconv.Itoa(user.UserId), "or"}).
 		First(ctx)
 	if err != nil {
 		return nil, err
 	}
-	if &user.Password != nil {
-		dbUser.Password = user.Password
-	}
-	if &user.Realname != nil {
-		dbUser.Realname = user.Realname
-	}
-	if &user.Nickname != nil {
-		dbUser.Nickname = user.Nickname
-	}
-	if &user.AvatarUrl != nil {
-		dbUser.AvatarUrl = user.AvatarUrl
-	}
-	if &user.Phone != nil {
-		dbUser.Phone = user.Phone
-	}
-	if &user.UserIP != nil {
-		dbUser.UserIP = user.UserIP
-	}
-	if &user.State != nil {
-		dbUser.State = user.State
-	}
+	x := func() *mariadb.User {
+		y := &mariadb.User{Id: user.UserId}
+		if user.Username != "" {
+			y.Username = user.Username
+		}
+		if user.Password != "" {
+			y.Password = user.Password
+		}
+		return y
+	}()
+
 	if err := ur.data.DBClient.DatabaseClient.
-		UpdateUser(ctx, dbUser); err != nil {
+		UpdateUser(ctx, insert); err != nil {
 		return nil, err
 	}
-	return &biz.User{
-		UserId:     dbUser.Id,
-		Username:   dbUser.Username,
-		Password:   dbUser.Password,
-		Realname:   dbUser.Realname,
-		Phone:      dbUser.Phone,
-		UserIP:     dbUser.UserIP,
-		State:      dbUser.State,
-		Deleted:    dbUser.Deleted,
-		CreateTime: timestamppb.New(dbUser.CreateTime),
-		UpdateTime: timestamppb.New(dbUser.UpdateTime),
-	}, nil
+	return user, nil
 }
 
 func (ar *userRepo) DeleteUser(ctx context.Context, name string) (*emptypb.Empty, error) {

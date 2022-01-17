@@ -22,30 +22,30 @@ var repo = func() biz.UserRepo {
 var id = "1"
 
 func TestCreateUser(t *testing.T) {
-	// a, err := repo.CreateUser(context.Background(), &biz.User{
-	//         Title:      "Test Create user title",
-	//         Content:    "Test Create user content",
-	//         CategoryId: 1,
-	//         UserId:     1,
-	// })
-	// if err != nil {
-	//         t.Error(err)
-	// }
-	// fmt.Println(a.UserId)
+	_, err := repo.CreateUser(context.Background(), &biz.User{
+		Username:  "dataInserted",
+		Password:  "123",
+		Realname:  "aaa",
+		Nickname:  "bbb",
+		AvatarUrl: "ccc.jpg",
+		Phone:     "13412345678",
+		UserIP:    "123.123.123.123",
+	})
+	if err != nil {
+		t.Error(err)
+	}
 }
 
 func TestUpdateUser(t *testing.T) {
-	// a, err := repo.UpdateUser(context.Background(), &biz.User{
-	//         UserId:     id,
-	//         Title:      "Test Update user title",
-	//         Content:    "Test Update user content",
-	//         CategoryId: 1,
-	//         UserId:     1,
-	// })
-	// if err != nil {
-	//         t.Error(err)
-	// }
-	// fmt.Println(a.UserId)
+	_, err := repo.UpdateUser(context.Background(), &biz.User{
+		UserId:   9,
+		Username: "dataUpdated",
+		Password: "dataUpdated",
+		Realname: "dataUpdated",
+	})
+	if err != nil {
+		t.Error(err)
+	}
 }
 
 func TestGetUser(t *testing.T) {
