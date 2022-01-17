@@ -21,6 +21,7 @@ const _ = grpc.SupportPackageIsVersion7
 type RolesAPIClient interface {
 	ListRoles(ctx context.Context, in *ListRolesRequest, opts ...grpc.CallOption) (*ListRolesResponse, error)
 	GetRole(ctx context.Context, in *GetRoleRequest, opts ...grpc.CallOption) (*Role, error)
+	SearchRoles(ctx context.Context, in *SearchRolesRequest, opts ...grpc.CallOption) (*SearchRolesResponse, error)
 	CreateRole(ctx context.Context, in *CreateRoleRequest, opts ...grpc.CallOption) (*Role, error)
 	UpdateRole(ctx context.Context, in *UpdateRoleRequest, opts ...grpc.CallOption) (*Role, error)
 	DeleteRole(ctx context.Context, in *DeleteRoleRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
@@ -46,6 +47,15 @@ func (c *rolesAPIClient) ListRoles(ctx context.Context, in *ListRolesRequest, op
 func (c *rolesAPIClient) GetRole(ctx context.Context, in *GetRoleRequest, opts ...grpc.CallOption) (*Role, error) {
 	out := new(Role)
 	err := c.cc.Invoke(ctx, "/hfcms.users.v1.RolesAPI/GetRole", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *rolesAPIClient) SearchRoles(ctx context.Context, in *SearchRolesRequest, opts ...grpc.CallOption) (*SearchRolesResponse, error) {
+	out := new(SearchRolesResponse)
+	err := c.cc.Invoke(ctx, "/hfcms.users.v1.RolesAPI/SearchRoles", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -85,6 +95,7 @@ func (c *rolesAPIClient) DeleteRole(ctx context.Context, in *DeleteRoleRequest, 
 type RolesAPIServer interface {
 	ListRoles(context.Context, *ListRolesRequest) (*ListRolesResponse, error)
 	GetRole(context.Context, *GetRoleRequest) (*Role, error)
+	SearchRoles(context.Context, *SearchRolesRequest) (*SearchRolesResponse, error)
 	CreateRole(context.Context, *CreateRoleRequest) (*Role, error)
 	UpdateRole(context.Context, *UpdateRoleRequest) (*Role, error)
 	DeleteRole(context.Context, *DeleteRoleRequest) (*emptypb.Empty, error)
@@ -100,6 +111,9 @@ func (UnimplementedRolesAPIServer) ListRoles(context.Context, *ListRolesRequest)
 }
 func (UnimplementedRolesAPIServer) GetRole(context.Context, *GetRoleRequest) (*Role, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetRole not implemented")
+}
+func (UnimplementedRolesAPIServer) SearchRoles(context.Context, *SearchRolesRequest) (*SearchRolesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SearchRoles not implemented")
 }
 func (UnimplementedRolesAPIServer) CreateRole(context.Context, *CreateRoleRequest) (*Role, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateRole not implemented")
@@ -155,6 +169,24 @@ func _RolesAPI_GetRole_Handler(srv interface{}, ctx context.Context, dec func(in
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(RolesAPIServer).GetRole(ctx, req.(*GetRoleRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _RolesAPI_SearchRoles_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SearchRolesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RolesAPIServer).SearchRoles(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/hfcms.users.v1.RolesAPI/SearchRoles",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RolesAPIServer).SearchRoles(ctx, req.(*SearchRolesRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -227,6 +259,10 @@ var RolesAPI_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetRole",
 			Handler:    _RolesAPI_GetRole_Handler,
+		},
+		{
+			MethodName: "SearchRoles",
+			Handler:    _RolesAPI_SearchRoles_Handler,
 		},
 		{
 			MethodName: "CreateRole",
