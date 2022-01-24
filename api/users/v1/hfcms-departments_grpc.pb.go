@@ -15,10 +15,10 @@ import (
 // Requires gRPC-Go v1.32.0 or later.
 const _ = grpc.SupportPackageIsVersion7
 
-// DepartmentsServiceClient is the client API for DepartmentsService service.
+// DepartmentsAPIClient is the client API for DepartmentsAPI service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type DepartmentsServiceClient interface {
+type DepartmentsAPIClient interface {
 	ListDepartments(ctx context.Context, in *ListDepartmentsRequest, opts ...grpc.CallOption) (*ListDepartmentsResponse, error)
 	GetDepartment(ctx context.Context, in *GetDepartmentRequest, opts ...grpc.CallOption) (*Department, error)
 	CreateDepartment(ctx context.Context, in *CreateDepartmentRequest, opts ...grpc.CallOption) (*Department, error)
@@ -26,219 +26,219 @@ type DepartmentsServiceClient interface {
 	DeleteDepartment(ctx context.Context, in *DeleteDepartmentRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
-type departmentsServiceClient struct {
+type departmentsAPIClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewDepartmentsServiceClient(cc grpc.ClientConnInterface) DepartmentsServiceClient {
-	return &departmentsServiceClient{cc}
+func NewDepartmentsAPIClient(cc grpc.ClientConnInterface) DepartmentsAPIClient {
+	return &departmentsAPIClient{cc}
 }
 
-func (c *departmentsServiceClient) ListDepartments(ctx context.Context, in *ListDepartmentsRequest, opts ...grpc.CallOption) (*ListDepartmentsResponse, error) {
+func (c *departmentsAPIClient) ListDepartments(ctx context.Context, in *ListDepartmentsRequest, opts ...grpc.CallOption) (*ListDepartmentsResponse, error) {
 	out := new(ListDepartmentsResponse)
-	err := c.cc.Invoke(ctx, "/hfcms.users.v1.DepartmentsService/ListDepartments", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/hfcms.users.v1.DepartmentsAPI/ListDepartments", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *departmentsServiceClient) GetDepartment(ctx context.Context, in *GetDepartmentRequest, opts ...grpc.CallOption) (*Department, error) {
+func (c *departmentsAPIClient) GetDepartment(ctx context.Context, in *GetDepartmentRequest, opts ...grpc.CallOption) (*Department, error) {
 	out := new(Department)
-	err := c.cc.Invoke(ctx, "/hfcms.users.v1.DepartmentsService/GetDepartment", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/hfcms.users.v1.DepartmentsAPI/GetDepartment", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *departmentsServiceClient) CreateDepartment(ctx context.Context, in *CreateDepartmentRequest, opts ...grpc.CallOption) (*Department, error) {
+func (c *departmentsAPIClient) CreateDepartment(ctx context.Context, in *CreateDepartmentRequest, opts ...grpc.CallOption) (*Department, error) {
 	out := new(Department)
-	err := c.cc.Invoke(ctx, "/hfcms.users.v1.DepartmentsService/CreateDepartment", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/hfcms.users.v1.DepartmentsAPI/CreateDepartment", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *departmentsServiceClient) UpdateDepartment(ctx context.Context, in *UpdateDepartmentRequest, opts ...grpc.CallOption) (*Department, error) {
+func (c *departmentsAPIClient) UpdateDepartment(ctx context.Context, in *UpdateDepartmentRequest, opts ...grpc.CallOption) (*Department, error) {
 	out := new(Department)
-	err := c.cc.Invoke(ctx, "/hfcms.users.v1.DepartmentsService/UpdateDepartment", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/hfcms.users.v1.DepartmentsAPI/UpdateDepartment", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *departmentsServiceClient) DeleteDepartment(ctx context.Context, in *DeleteDepartmentRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+func (c *departmentsAPIClient) DeleteDepartment(ctx context.Context, in *DeleteDepartmentRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, "/hfcms.users.v1.DepartmentsService/DeleteDepartment", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/hfcms.users.v1.DepartmentsAPI/DeleteDepartment", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// DepartmentsServiceServer is the server API for DepartmentsService service.
-// All implementations must embed UnimplementedDepartmentsServiceServer
+// DepartmentsAPIServer is the server API for DepartmentsAPI service.
+// All implementations must embed UnimplementedDepartmentsAPIServer
 // for forward compatibility
-type DepartmentsServiceServer interface {
+type DepartmentsAPIServer interface {
 	ListDepartments(context.Context, *ListDepartmentsRequest) (*ListDepartmentsResponse, error)
 	GetDepartment(context.Context, *GetDepartmentRequest) (*Department, error)
 	CreateDepartment(context.Context, *CreateDepartmentRequest) (*Department, error)
 	UpdateDepartment(context.Context, *UpdateDepartmentRequest) (*Department, error)
 	DeleteDepartment(context.Context, *DeleteDepartmentRequest) (*emptypb.Empty, error)
-	mustEmbedUnimplementedDepartmentsServiceServer()
+	mustEmbedUnimplementedDepartmentsAPIServer()
 }
 
-// UnimplementedDepartmentsServiceServer must be embedded to have forward compatible implementations.
-type UnimplementedDepartmentsServiceServer struct {
+// UnimplementedDepartmentsAPIServer must be embedded to have forward compatible implementations.
+type UnimplementedDepartmentsAPIServer struct {
 }
 
-func (UnimplementedDepartmentsServiceServer) ListDepartments(context.Context, *ListDepartmentsRequest) (*ListDepartmentsResponse, error) {
+func (UnimplementedDepartmentsAPIServer) ListDepartments(context.Context, *ListDepartmentsRequest) (*ListDepartmentsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListDepartments not implemented")
 }
-func (UnimplementedDepartmentsServiceServer) GetDepartment(context.Context, *GetDepartmentRequest) (*Department, error) {
+func (UnimplementedDepartmentsAPIServer) GetDepartment(context.Context, *GetDepartmentRequest) (*Department, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDepartment not implemented")
 }
-func (UnimplementedDepartmentsServiceServer) CreateDepartment(context.Context, *CreateDepartmentRequest) (*Department, error) {
+func (UnimplementedDepartmentsAPIServer) CreateDepartment(context.Context, *CreateDepartmentRequest) (*Department, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateDepartment not implemented")
 }
-func (UnimplementedDepartmentsServiceServer) UpdateDepartment(context.Context, *UpdateDepartmentRequest) (*Department, error) {
+func (UnimplementedDepartmentsAPIServer) UpdateDepartment(context.Context, *UpdateDepartmentRequest) (*Department, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateDepartment not implemented")
 }
-func (UnimplementedDepartmentsServiceServer) DeleteDepartment(context.Context, *DeleteDepartmentRequest) (*emptypb.Empty, error) {
+func (UnimplementedDepartmentsAPIServer) DeleteDepartment(context.Context, *DeleteDepartmentRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteDepartment not implemented")
 }
-func (UnimplementedDepartmentsServiceServer) mustEmbedUnimplementedDepartmentsServiceServer() {}
+func (UnimplementedDepartmentsAPIServer) mustEmbedUnimplementedDepartmentsAPIServer() {}
 
-// UnsafeDepartmentsServiceServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to DepartmentsServiceServer will
+// UnsafeDepartmentsAPIServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to DepartmentsAPIServer will
 // result in compilation errors.
-type UnsafeDepartmentsServiceServer interface {
-	mustEmbedUnimplementedDepartmentsServiceServer()
+type UnsafeDepartmentsAPIServer interface {
+	mustEmbedUnimplementedDepartmentsAPIServer()
 }
 
-func RegisterDepartmentsServiceServer(s grpc.ServiceRegistrar, srv DepartmentsServiceServer) {
-	s.RegisterService(&DepartmentsService_ServiceDesc, srv)
+func RegisterDepartmentsAPIServer(s grpc.ServiceRegistrar, srv DepartmentsAPIServer) {
+	s.RegisterService(&DepartmentsAPI_ServiceDesc, srv)
 }
 
-func _DepartmentsService_ListDepartments_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _DepartmentsAPI_ListDepartments_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ListDepartmentsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DepartmentsServiceServer).ListDepartments(ctx, in)
+		return srv.(DepartmentsAPIServer).ListDepartments(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/hfcms.users.v1.DepartmentsService/ListDepartments",
+		FullMethod: "/hfcms.users.v1.DepartmentsAPI/ListDepartments",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DepartmentsServiceServer).ListDepartments(ctx, req.(*ListDepartmentsRequest))
+		return srv.(DepartmentsAPIServer).ListDepartments(ctx, req.(*ListDepartmentsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DepartmentsService_GetDepartment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _DepartmentsAPI_GetDepartment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetDepartmentRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DepartmentsServiceServer).GetDepartment(ctx, in)
+		return srv.(DepartmentsAPIServer).GetDepartment(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/hfcms.users.v1.DepartmentsService/GetDepartment",
+		FullMethod: "/hfcms.users.v1.DepartmentsAPI/GetDepartment",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DepartmentsServiceServer).GetDepartment(ctx, req.(*GetDepartmentRequest))
+		return srv.(DepartmentsAPIServer).GetDepartment(ctx, req.(*GetDepartmentRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DepartmentsService_CreateDepartment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _DepartmentsAPI_CreateDepartment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreateDepartmentRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DepartmentsServiceServer).CreateDepartment(ctx, in)
+		return srv.(DepartmentsAPIServer).CreateDepartment(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/hfcms.users.v1.DepartmentsService/CreateDepartment",
+		FullMethod: "/hfcms.users.v1.DepartmentsAPI/CreateDepartment",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DepartmentsServiceServer).CreateDepartment(ctx, req.(*CreateDepartmentRequest))
+		return srv.(DepartmentsAPIServer).CreateDepartment(ctx, req.(*CreateDepartmentRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DepartmentsService_UpdateDepartment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _DepartmentsAPI_UpdateDepartment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(UpdateDepartmentRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DepartmentsServiceServer).UpdateDepartment(ctx, in)
+		return srv.(DepartmentsAPIServer).UpdateDepartment(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/hfcms.users.v1.DepartmentsService/UpdateDepartment",
+		FullMethod: "/hfcms.users.v1.DepartmentsAPI/UpdateDepartment",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DepartmentsServiceServer).UpdateDepartment(ctx, req.(*UpdateDepartmentRequest))
+		return srv.(DepartmentsAPIServer).UpdateDepartment(ctx, req.(*UpdateDepartmentRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DepartmentsService_DeleteDepartment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _DepartmentsAPI_DeleteDepartment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DeleteDepartmentRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DepartmentsServiceServer).DeleteDepartment(ctx, in)
+		return srv.(DepartmentsAPIServer).DeleteDepartment(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/hfcms.users.v1.DepartmentsService/DeleteDepartment",
+		FullMethod: "/hfcms.users.v1.DepartmentsAPI/DeleteDepartment",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DepartmentsServiceServer).DeleteDepartment(ctx, req.(*DeleteDepartmentRequest))
+		return srv.(DepartmentsAPIServer).DeleteDepartment(ctx, req.(*DeleteDepartmentRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// DepartmentsService_ServiceDesc is the grpc.ServiceDesc for DepartmentsService service.
+// DepartmentsAPI_ServiceDesc is the grpc.ServiceDesc for DepartmentsAPI service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var DepartmentsService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "hfcms.users.v1.DepartmentsService",
-	HandlerType: (*DepartmentsServiceServer)(nil),
+var DepartmentsAPI_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "hfcms.users.v1.DepartmentsAPI",
+	HandlerType: (*DepartmentsAPIServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "ListDepartments",
-			Handler:    _DepartmentsService_ListDepartments_Handler,
+			Handler:    _DepartmentsAPI_ListDepartments_Handler,
 		},
 		{
 			MethodName: "GetDepartment",
-			Handler:    _DepartmentsService_GetDepartment_Handler,
+			Handler:    _DepartmentsAPI_GetDepartment_Handler,
 		},
 		{
 			MethodName: "CreateDepartment",
-			Handler:    _DepartmentsService_CreateDepartment_Handler,
+			Handler:    _DepartmentsAPI_CreateDepartment_Handler,
 		},
 		{
 			MethodName: "UpdateDepartment",
-			Handler:    _DepartmentsService_UpdateDepartment_Handler,
+			Handler:    _DepartmentsAPI_UpdateDepartment_Handler,
 		},
 		{
 			MethodName: "DeleteDepartment",
-			Handler:    _DepartmentsService_DeleteDepartment_Handler,
+			Handler:    _DepartmentsAPI_DeleteDepartment_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

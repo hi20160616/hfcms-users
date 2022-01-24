@@ -32,17 +32,17 @@ var _ = utilities.NewDoubleArray
 var _ = metadata.Join
 
 var (
-	filter_DepartmentsService_ListDepartments_0 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
+	filter_DepartmentsAPI_ListDepartments_0 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
 )
 
-func request_DepartmentsService_ListDepartments_0(ctx context.Context, marshaler runtime.Marshaler, client DepartmentsServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func request_DepartmentsAPI_ListDepartments_0(ctx context.Context, marshaler runtime.Marshaler, client DepartmentsAPIClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq ListDepartmentsRequest
 	var metadata runtime.ServerMetadata
 
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_DepartmentsService_ListDepartments_0); err != nil {
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_DepartmentsAPI_ListDepartments_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
@@ -51,14 +51,14 @@ func request_DepartmentsService_ListDepartments_0(ctx context.Context, marshaler
 
 }
 
-func local_request_DepartmentsService_ListDepartments_0(ctx context.Context, marshaler runtime.Marshaler, server DepartmentsServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func local_request_DepartmentsAPI_ListDepartments_0(ctx context.Context, marshaler runtime.Marshaler, server DepartmentsAPIServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq ListDepartmentsRequest
 	var metadata runtime.ServerMetadata
 
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_DepartmentsService_ListDepartments_0); err != nil {
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_DepartmentsAPI_ListDepartments_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
@@ -67,7 +67,7 @@ func local_request_DepartmentsService_ListDepartments_0(ctx context.Context, mar
 
 }
 
-func request_DepartmentsService_GetDepartment_0(ctx context.Context, marshaler runtime.Marshaler, client DepartmentsServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func request_DepartmentsAPI_GetDepartment_0(ctx context.Context, marshaler runtime.Marshaler, client DepartmentsAPIClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq GetDepartmentRequest
 	var metadata runtime.ServerMetadata
 
@@ -93,7 +93,7 @@ func request_DepartmentsService_GetDepartment_0(ctx context.Context, marshaler r
 
 }
 
-func local_request_DepartmentsService_GetDepartment_0(ctx context.Context, marshaler runtime.Marshaler, server DepartmentsServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func local_request_DepartmentsAPI_GetDepartment_0(ctx context.Context, marshaler runtime.Marshaler, server DepartmentsAPIServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq GetDepartmentRequest
 	var metadata runtime.ServerMetadata
 
@@ -120,10 +120,10 @@ func local_request_DepartmentsService_GetDepartment_0(ctx context.Context, marsh
 }
 
 var (
-	filter_DepartmentsService_CreateDepartment_0 = &utilities.DoubleArray{Encoding: map[string]int{"department": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
+	filter_DepartmentsAPI_CreateDepartment_0 = &utilities.DoubleArray{Encoding: map[string]int{"department": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
 )
 
-func request_DepartmentsService_CreateDepartment_0(ctx context.Context, marshaler runtime.Marshaler, client DepartmentsServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func request_DepartmentsAPI_CreateDepartment_0(ctx context.Context, marshaler runtime.Marshaler, client DepartmentsAPIClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq CreateDepartmentRequest
 	var metadata runtime.ServerMetadata
 
@@ -138,7 +138,7 @@ func request_DepartmentsService_CreateDepartment_0(ctx context.Context, marshale
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_DepartmentsService_CreateDepartment_0); err != nil {
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_DepartmentsAPI_CreateDepartment_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
@@ -147,7 +147,7 @@ func request_DepartmentsService_CreateDepartment_0(ctx context.Context, marshale
 
 }
 
-func local_request_DepartmentsService_CreateDepartment_0(ctx context.Context, marshaler runtime.Marshaler, server DepartmentsServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func local_request_DepartmentsAPI_CreateDepartment_0(ctx context.Context, marshaler runtime.Marshaler, server DepartmentsAPIServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq CreateDepartmentRequest
 	var metadata runtime.ServerMetadata
 
@@ -162,7 +162,7 @@ func local_request_DepartmentsService_CreateDepartment_0(ctx context.Context, ma
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_DepartmentsService_CreateDepartment_0); err != nil {
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_DepartmentsAPI_CreateDepartment_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
@@ -171,7 +171,7 @@ func local_request_DepartmentsService_CreateDepartment_0(ctx context.Context, ma
 
 }
 
-func request_DepartmentsService_UpdateDepartment_0(ctx context.Context, marshaler runtime.Marshaler, client DepartmentsServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func request_DepartmentsAPI_UpdateDepartment_0(ctx context.Context, marshaler runtime.Marshaler, client DepartmentsAPIClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq UpdateDepartmentRequest
 	var metadata runtime.ServerMetadata
 
@@ -205,7 +205,7 @@ func request_DepartmentsService_UpdateDepartment_0(ctx context.Context, marshale
 
 }
 
-func local_request_DepartmentsService_UpdateDepartment_0(ctx context.Context, marshaler runtime.Marshaler, server DepartmentsServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func local_request_DepartmentsAPI_UpdateDepartment_0(ctx context.Context, marshaler runtime.Marshaler, server DepartmentsAPIServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq UpdateDepartmentRequest
 	var metadata runtime.ServerMetadata
 
@@ -239,7 +239,7 @@ func local_request_DepartmentsService_UpdateDepartment_0(ctx context.Context, ma
 
 }
 
-func request_DepartmentsService_DeleteDepartment_0(ctx context.Context, marshaler runtime.Marshaler, client DepartmentsServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func request_DepartmentsAPI_DeleteDepartment_0(ctx context.Context, marshaler runtime.Marshaler, client DepartmentsAPIClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq DeleteDepartmentRequest
 	var metadata runtime.ServerMetadata
 
@@ -265,7 +265,7 @@ func request_DepartmentsService_DeleteDepartment_0(ctx context.Context, marshale
 
 }
 
-func local_request_DepartmentsService_DeleteDepartment_0(ctx context.Context, marshaler runtime.Marshaler, server DepartmentsServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func local_request_DepartmentsAPI_DeleteDepartment_0(ctx context.Context, marshaler runtime.Marshaler, server DepartmentsAPIServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq DeleteDepartmentRequest
 	var metadata runtime.ServerMetadata
 
@@ -291,24 +291,24 @@ func local_request_DepartmentsService_DeleteDepartment_0(ctx context.Context, ma
 
 }
 
-// RegisterDepartmentsServiceHandlerServer registers the http handlers for service DepartmentsService to "mux".
-// UnaryRPC     :call DepartmentsServiceServer directly.
+// RegisterDepartmentsAPIHandlerServer registers the http handlers for service DepartmentsAPI to "mux".
+// UnaryRPC     :call DepartmentsAPIServer directly.
 // StreamingRPC :currently unsupported pending https://github.com/grpc/grpc-go/issues/906.
-// Note that using this registration option will cause many gRPC library features to stop working. Consider using RegisterDepartmentsServiceHandlerFromEndpoint instead.
-func RegisterDepartmentsServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux, server DepartmentsServiceServer) error {
+// Note that using this registration option will cause many gRPC library features to stop working. Consider using RegisterDepartmentsAPIHandlerFromEndpoint instead.
+func RegisterDepartmentsAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, server DepartmentsAPIServer) error {
 
-	mux.Handle("GET", pattern_DepartmentsService_ListDepartments_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_DepartmentsAPI_ListDepartments_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/hfcms.users.v1.DepartmentsService/ListDepartments", runtime.WithHTTPPathPattern("/v1/departments"))
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/hfcms.users.v1.DepartmentsAPI/ListDepartments", runtime.WithHTTPPathPattern("/v1/departments"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_DepartmentsService_ListDepartments_0(rctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_DepartmentsAPI_ListDepartments_0(rctx, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
@@ -316,22 +316,22 @@ func RegisterDepartmentsServiceHandlerServer(ctx context.Context, mux *runtime.S
 			return
 		}
 
-		forward_DepartmentsService_ListDepartments_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_DepartmentsAPI_ListDepartments_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("GET", pattern_DepartmentsService_GetDepartment_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_DepartmentsAPI_GetDepartment_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/hfcms.users.v1.DepartmentsService/GetDepartment", runtime.WithHTTPPathPattern("/v1/{name=departments/*}"))
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/hfcms.users.v1.DepartmentsAPI/GetDepartment", runtime.WithHTTPPathPattern("/v1/{name=departments/*}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_DepartmentsService_GetDepartment_0(rctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_DepartmentsAPI_GetDepartment_0(rctx, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
@@ -339,22 +339,22 @@ func RegisterDepartmentsServiceHandlerServer(ctx context.Context, mux *runtime.S
 			return
 		}
 
-		forward_DepartmentsService_GetDepartment_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_DepartmentsAPI_GetDepartment_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("POST", pattern_DepartmentsService_CreateDepartment_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_DepartmentsAPI_CreateDepartment_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/hfcms.users.v1.DepartmentsService/CreateDepartment", runtime.WithHTTPPathPattern("/v1/departments"))
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/hfcms.users.v1.DepartmentsAPI/CreateDepartment", runtime.WithHTTPPathPattern("/v1/departments"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_DepartmentsService_CreateDepartment_0(rctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_DepartmentsAPI_CreateDepartment_0(rctx, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
@@ -362,22 +362,22 @@ func RegisterDepartmentsServiceHandlerServer(ctx context.Context, mux *runtime.S
 			return
 		}
 
-		forward_DepartmentsService_CreateDepartment_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_DepartmentsAPI_CreateDepartment_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("PATCH", pattern_DepartmentsService_UpdateDepartment_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("PATCH", pattern_DepartmentsAPI_UpdateDepartment_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/hfcms.users.v1.DepartmentsService/UpdateDepartment", runtime.WithHTTPPathPattern("/v1/{department.name=departments/*/update}"))
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/hfcms.users.v1.DepartmentsAPI/UpdateDepartment", runtime.WithHTTPPathPattern("/v1/{department.name=departments/*/update}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_DepartmentsService_UpdateDepartment_0(rctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_DepartmentsAPI_UpdateDepartment_0(rctx, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
@@ -385,22 +385,22 @@ func RegisterDepartmentsServiceHandlerServer(ctx context.Context, mux *runtime.S
 			return
 		}
 
-		forward_DepartmentsService_UpdateDepartment_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_DepartmentsAPI_UpdateDepartment_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("DELETE", pattern_DepartmentsService_DeleteDepartment_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("DELETE", pattern_DepartmentsAPI_DeleteDepartment_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/hfcms.users.v1.DepartmentsService/DeleteDepartment", runtime.WithHTTPPathPattern("/v1/{name=departments/*/delete}"))
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/hfcms.users.v1.DepartmentsAPI/DeleteDepartment", runtime.WithHTTPPathPattern("/v1/{name=departments/*/delete}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_DepartmentsService_DeleteDepartment_0(rctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_DepartmentsAPI_DeleteDepartment_0(rctx, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
@@ -408,16 +408,16 @@ func RegisterDepartmentsServiceHandlerServer(ctx context.Context, mux *runtime.S
 			return
 		}
 
-		forward_DepartmentsService_DeleteDepartment_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_DepartmentsAPI_DeleteDepartment_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
 	return nil
 }
 
-// RegisterDepartmentsServiceHandlerFromEndpoint is same as RegisterDepartmentsServiceHandler but
+// RegisterDepartmentsAPIHandlerFromEndpoint is same as RegisterDepartmentsAPIHandler but
 // automatically dials to "endpoint" and closes the connection when "ctx" gets done.
-func RegisterDepartmentsServiceHandlerFromEndpoint(ctx context.Context, mux *runtime.ServeMux, endpoint string, opts []grpc.DialOption) (err error) {
+func RegisterDepartmentsAPIHandlerFromEndpoint(ctx context.Context, mux *runtime.ServeMux, endpoint string, opts []grpc.DialOption) (err error) {
 	conn, err := grpc.Dial(endpoint, opts...)
 	if err != nil {
 		return err
@@ -437,119 +437,119 @@ func RegisterDepartmentsServiceHandlerFromEndpoint(ctx context.Context, mux *run
 		}()
 	}()
 
-	return RegisterDepartmentsServiceHandler(ctx, mux, conn)
+	return RegisterDepartmentsAPIHandler(ctx, mux, conn)
 }
 
-// RegisterDepartmentsServiceHandler registers the http handlers for service DepartmentsService to "mux".
+// RegisterDepartmentsAPIHandler registers the http handlers for service DepartmentsAPI to "mux".
 // The handlers forward requests to the grpc endpoint over "conn".
-func RegisterDepartmentsServiceHandler(ctx context.Context, mux *runtime.ServeMux, conn *grpc.ClientConn) error {
-	return RegisterDepartmentsServiceHandlerClient(ctx, mux, NewDepartmentsServiceClient(conn))
+func RegisterDepartmentsAPIHandler(ctx context.Context, mux *runtime.ServeMux, conn *grpc.ClientConn) error {
+	return RegisterDepartmentsAPIHandlerClient(ctx, mux, NewDepartmentsAPIClient(conn))
 }
 
-// RegisterDepartmentsServiceHandlerClient registers the http handlers for service DepartmentsService
-// to "mux". The handlers forward requests to the grpc endpoint over the given implementation of "DepartmentsServiceClient".
-// Note: the gRPC framework executes interceptors within the gRPC handler. If the passed in "DepartmentsServiceClient"
+// RegisterDepartmentsAPIHandlerClient registers the http handlers for service DepartmentsAPI
+// to "mux". The handlers forward requests to the grpc endpoint over the given implementation of "DepartmentsAPIClient".
+// Note: the gRPC framework executes interceptors within the gRPC handler. If the passed in "DepartmentsAPIClient"
 // doesn't go through the normal gRPC flow (creating a gRPC client etc.) then it will be up to the passed in
-// "DepartmentsServiceClient" to call the correct interceptors.
-func RegisterDepartmentsServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux, client DepartmentsServiceClient) error {
+// "DepartmentsAPIClient" to call the correct interceptors.
+func RegisterDepartmentsAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, client DepartmentsAPIClient) error {
 
-	mux.Handle("GET", pattern_DepartmentsService_ListDepartments_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_DepartmentsAPI_ListDepartments_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/hfcms.users.v1.DepartmentsService/ListDepartments", runtime.WithHTTPPathPattern("/v1/departments"))
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/hfcms.users.v1.DepartmentsAPI/ListDepartments", runtime.WithHTTPPathPattern("/v1/departments"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_DepartmentsService_ListDepartments_0(rctx, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_DepartmentsAPI_ListDepartments_0(rctx, inboundMarshaler, client, req, pathParams)
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_DepartmentsService_ListDepartments_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_DepartmentsAPI_ListDepartments_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("GET", pattern_DepartmentsService_GetDepartment_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_DepartmentsAPI_GetDepartment_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/hfcms.users.v1.DepartmentsService/GetDepartment", runtime.WithHTTPPathPattern("/v1/{name=departments/*}"))
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/hfcms.users.v1.DepartmentsAPI/GetDepartment", runtime.WithHTTPPathPattern("/v1/{name=departments/*}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_DepartmentsService_GetDepartment_0(rctx, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_DepartmentsAPI_GetDepartment_0(rctx, inboundMarshaler, client, req, pathParams)
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_DepartmentsService_GetDepartment_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_DepartmentsAPI_GetDepartment_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("POST", pattern_DepartmentsService_CreateDepartment_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_DepartmentsAPI_CreateDepartment_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/hfcms.users.v1.DepartmentsService/CreateDepartment", runtime.WithHTTPPathPattern("/v1/departments"))
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/hfcms.users.v1.DepartmentsAPI/CreateDepartment", runtime.WithHTTPPathPattern("/v1/departments"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_DepartmentsService_CreateDepartment_0(rctx, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_DepartmentsAPI_CreateDepartment_0(rctx, inboundMarshaler, client, req, pathParams)
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_DepartmentsService_CreateDepartment_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_DepartmentsAPI_CreateDepartment_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("PATCH", pattern_DepartmentsService_UpdateDepartment_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("PATCH", pattern_DepartmentsAPI_UpdateDepartment_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/hfcms.users.v1.DepartmentsService/UpdateDepartment", runtime.WithHTTPPathPattern("/v1/{department.name=departments/*/update}"))
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/hfcms.users.v1.DepartmentsAPI/UpdateDepartment", runtime.WithHTTPPathPattern("/v1/{department.name=departments/*/update}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_DepartmentsService_UpdateDepartment_0(rctx, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_DepartmentsAPI_UpdateDepartment_0(rctx, inboundMarshaler, client, req, pathParams)
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_DepartmentsService_UpdateDepartment_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_DepartmentsAPI_UpdateDepartment_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("DELETE", pattern_DepartmentsService_DeleteDepartment_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("DELETE", pattern_DepartmentsAPI_DeleteDepartment_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/hfcms.users.v1.DepartmentsService/DeleteDepartment", runtime.WithHTTPPathPattern("/v1/{name=departments/*/delete}"))
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/hfcms.users.v1.DepartmentsAPI/DeleteDepartment", runtime.WithHTTPPathPattern("/v1/{name=departments/*/delete}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_DepartmentsService_DeleteDepartment_0(rctx, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_DepartmentsAPI_DeleteDepartment_0(rctx, inboundMarshaler, client, req, pathParams)
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_DepartmentsService_DeleteDepartment_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_DepartmentsAPI_DeleteDepartment_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -557,25 +557,25 @@ func RegisterDepartmentsServiceHandlerClient(ctx context.Context, mux *runtime.S
 }
 
 var (
-	pattern_DepartmentsService_ListDepartments_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "departments"}, ""))
+	pattern_DepartmentsAPI_ListDepartments_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "departments"}, ""))
 
-	pattern_DepartmentsService_GetDepartment_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 2, 5, 2}, []string{"v1", "departments", "name"}, ""))
+	pattern_DepartmentsAPI_GetDepartment_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 2, 5, 2}, []string{"v1", "departments", "name"}, ""))
 
-	pattern_DepartmentsService_CreateDepartment_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "departments"}, ""))
+	pattern_DepartmentsAPI_CreateDepartment_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "departments"}, ""))
 
-	pattern_DepartmentsService_UpdateDepartment_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 2, 2, 4, 3, 5, 3}, []string{"v1", "departments", "update", "department.name"}, ""))
+	pattern_DepartmentsAPI_UpdateDepartment_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 2, 2, 4, 3, 5, 3}, []string{"v1", "departments", "update", "department.name"}, ""))
 
-	pattern_DepartmentsService_DeleteDepartment_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 2, 2, 4, 3, 5, 3}, []string{"v1", "departments", "delete", "name"}, ""))
+	pattern_DepartmentsAPI_DeleteDepartment_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 2, 2, 4, 3, 5, 3}, []string{"v1", "departments", "delete", "name"}, ""))
 )
 
 var (
-	forward_DepartmentsService_ListDepartments_0 = runtime.ForwardResponseMessage
+	forward_DepartmentsAPI_ListDepartments_0 = runtime.ForwardResponseMessage
 
-	forward_DepartmentsService_GetDepartment_0 = runtime.ForwardResponseMessage
+	forward_DepartmentsAPI_GetDepartment_0 = runtime.ForwardResponseMessage
 
-	forward_DepartmentsService_CreateDepartment_0 = runtime.ForwardResponseMessage
+	forward_DepartmentsAPI_CreateDepartment_0 = runtime.ForwardResponseMessage
 
-	forward_DepartmentsService_UpdateDepartment_0 = runtime.ForwardResponseMessage
+	forward_DepartmentsAPI_UpdateDepartment_0 = runtime.ForwardResponseMessage
 
-	forward_DepartmentsService_DeleteDepartment_0 = runtime.ForwardResponseMessage
+	forward_DepartmentsAPI_DeleteDepartment_0 = runtime.ForwardResponseMessage
 )
